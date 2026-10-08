@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>主力籌碼結構量化儀表板 (靜態雲端版)</title>
     <style>
         :root {
@@ -22,27 +22,32 @@
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
-            padding: 24px;
-            font-size: 15px; /* 整體放大 10% */
+            padding: 16px; /* 手機端邊距縮減為 16px */
+            font-size: 15px;
+            overflow-x: hidden; /* 徹底杜絕手機左右晃動 */
         }
-        .container { max-width: 1540px; margin: 0 auto; }
+        .container { 
+            max-width: 1540px; 
+            margin: 0 auto; 
+            width: 100%;
+        }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 18px;
-            margin-bottom: 22px;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 12px;
         }
-        h1 { margin: 0; font-size: 25px; }
+        h1 { margin: 0; font-size: 22px; }
         .tag {
             background-color: #2563eb;
             color: white;
-            padding: 7px 16px;
+            padding: 6px 14px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
         
@@ -51,104 +56,97 @@
             background-color: #1e1b4b;
             border: 2px solid #4f46e5;
             border-radius: 12px;
-            padding: 16px 20px;
-            margin-bottom: 24px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 14px;
         }
         .control-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
+            width: 100%;
         }
         select, button {
             background: #312e81;
             color: white;
             border: 1px solid #6366f1;
             border-radius: 6px;
-            padding: 8px 14px;
+            padding: 8px 12px;
             font-size: 14px;
             cursor: pointer;
             outline: none;
         }
-        button:hover, select:hover {
-            background: #3730a3;
-        }
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .nav-btn {
-            font-weight: bold;
-            padding: 8px 16px;
-        }
+        button:hover, select:hover { background: #3730a3; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .nav-btn { font-weight: bold; padding: 8px 14px; }
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* 手機端自動雙欄 */
+            gap: 14px;
+            margin-bottom: 20px;
         }
         .metric-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 18px;
+            padding: 14px;
         }
-        .metric-label { font-size: 14px; color: var(--text-sub); }
-        .metric-value { font-size: 25px; font-weight: bold; margin-top: 6px; }
+        .metric-label { font-size: 13px; color: var(--text-sub); }
+        .metric-value { font-size: 20px; font-weight: bold; margin-top: 4px; }
 
+        /* 圖表網格：自適應寬度 */
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr));
+            gap: 20px;
+            width: 100%;
         }
         .chart-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
-            min-height: 420px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-        }
-        .chart-header {
-            margin-bottom: 12px;
-        }
-        .chart-title {
-            font-size: 17px;
-            font-weight: bold;
-            color: #f1f5f9;
-        }
-        .chart-explain {
-            font-size: 13px;
-            color: #94a3b8;
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-        .svg-container {
             width: 100%;
-            height: 350px;
-            flex-grow: 1;
+            overflow: hidden; /* 防止內部圖元突起 */
         }
-        svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
+        .chart-header { margin-bottom: 10px; }
+        .chart-title { font-size: 16px; font-weight: bold; color: #f1f5f9; }
+        .chart-explain { font-size: 13px; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
+        
+        .svg-container { 
+            width: 100%; 
+            height: auto;
+            aspect-ratio: 580 / 330; /* 鎖定比例，保證手機縮放不變形 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #alert-box {
-            display: none;
-            padding: 12px 18px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            font-size: 14px;
+        svg { 
+            width: 100%; 
+            height: 100%; 
+            display: block;
         }
+
+        #alert-box { display: none; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
         .alert-error { background: #7f1d1d; border: 1px solid #dc2626; color: #fecaca; }
         .alert-success { background: #064e3b; border: 1px solid #059669; color: #a7f3d0; }
+
+        /* 手機版專屬微調 */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            h1 { font-size: 19px; }
+            .control-panel { padding: 12px; }
+            .control-group select { flex: 1; } /* 下拉選單自動填滿寬度 */
+            .chart-box { padding: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -158,11 +156,11 @@
         <header>
             <div>
                 <h1 id="header-title">📊 主力籌碼結構量化儀表板</h1>
-                <div style="color: var(--text-sub); font-size: 15px; margin-top: 6px;">
-                    股票代號：<span id="obs-code" style="color: #60a5fa; font-weight: bold;">--</span> ｜ 
-                    觀測基準日：<span id="obs-date" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
-                    資料開始統計日：<span id="obs-start" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
-                    累計觀測天數：<span id="obs-days">--</span> 天
+                <div style="color: var(--text-sub); font-size: 13px; margin-top: 4px;">
+                    代號：<span id="obs-code" style="color: #60a5fa; font-weight: bold;">--</span> ｜ 
+                    基準日：<span id="obs-date" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
+                    起算日：<span id="obs-start" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
+                    天數：<span id="obs-days">--</span> 天
                 </div>
             </div>
             <div>
@@ -173,19 +171,19 @@
         <!-- 雲端導航控制列 -->
         <div class="control-panel">
             <div class="control-group">
-                <span style="font-weight: bold; font-size: 15px;">🌐 雲端連線狀態：</span>
-                <span id="connection-status" style="color: #a5b4fc;">讀取 catalog.json 中...</span>
+                <span style="font-weight: bold; font-size: 14px;">🌐 雲端連線狀態：</span>
+                <span id="connection-status" style="color: #a5b4fc; font-size: 13px;">讀取 catalog.json 中...</span>
             </div>
 
             <!-- 動態切換股票與日期 -->
             <div class="control-group" id="nav-controls">
-                <label>股票代號：</label>
+                <label style="font-size: 14px;">股票：</label>
                 <select id="select-stock"></select>
 
-                <label style="margin-left:12px;">交易日期：</label>
-                <button class="nav-btn" id="btn-prev-day">◀ 上一日</button>
+                <label style="margin-left:6px; font-size: 14px;">日期：</label>
+                <button class="nav-btn" id="btn-prev-day">◀</button>
                 <select id="select-date"></select>
-                <button class="nav-btn" id="btn-next-day">下一日 ▶</button>
+                <button class="nav-btn" id="btn-next-day">▶</button>
             </div>
         </div>
 
@@ -200,7 +198,7 @@
                 <div class="metric-value" id="val-vol">--</div>
             </div>
             <div class="metric-card">
-                <div class="metric-label">全日加權均價 (VWAP)</div>
+                <div class="metric-label">全日均價 (VWAP)</div>
                 <div class="metric-value" id="val-vwap">--</div>
             </div>
             <div class="metric-card">
@@ -215,7 +213,7 @@
             <div class="chart-box">
                 <div class="chart-header">
                     <div class="chart-title">1. 今日關鍵分點淨買賣超 (張)</div>
-                    <div class="chart-explain">🔴 <span style="color:var(--tw-buy)">紅色為買超大戶</span>（主動買進），🟢 <span style="color:var(--tw-sell)">綠色為賣超大戶</span>（拋補賣出）。</div>
+                    <div class="chart-explain">🔴 <span style="color:var(--tw-buy)">紅色為買超大戶</span>，🟢 <span style="color:var(--tw-sell)">綠色為賣超大戶</span>。</div>
                 </div>
                 <div class="svg-container" id="chart1"></div>
             </div>
@@ -225,7 +223,7 @@
                 <div class="chart-header">
                     <div class="chart-title">2. 大戶籌碼集中度對比 (%)</div>
                     <div class="chart-explain" id="conc-explain">
-                        💡 <b>解釋意義</b>：買方 > 賣方代表大戶掃貨（偏多）；賣方 > 買方代表大戶倒給散戶（偏空）；兩者接近代表多空均衡或高檔換手。
+                        💡 <b>解釋意義</b>：買方 > 賣方代表大戶掃貨；賣方 > 買方代表大戶調節。
                     </div>
                 </div>
                 <div class="svg-container" id="chart2"></div>
@@ -235,7 +233,7 @@
             <div class="chart-box">
                 <div class="chart-header">
                     <div class="chart-title">3. 波段累計庫存 (張)</div>
-                    <div class="chart-explain">反映自統計起始日起累積之庫存實力。🔴 <span style="color:var(--tw-buy)">紅條為多頭主力囤貨</span>，🟢 <span style="color:var(--tw-sell)">綠條為空頭主力累計提款</span>。</div>
+                    <div class="chart-explain">反映自起算日起之累積部位。🔴 <span style="color:var(--tw-buy)">紅條為囤貨</span>，🟢 <span style="color:var(--tw-sell)">綠條為出貨</span>。</div>
                 </div>
                 <div class="svg-container" id="chart3"></div>
             </div>
@@ -244,7 +242,7 @@
             <div class="chart-box">
                 <div class="chart-header">
                     <div class="chart-title">4. 核心主力波段成本防守帶 (元)</div>
-                    <div class="chart-explain">🔵 圓點為各大戶波段成本價。線條標記當日收盤價與全日 VWAP，作為拉回時的重要實質支撐線。</div>
+                    <div class="chart-explain">🔵 圓點為各大戶波段成本價。線條標記當日收盤價與 VWAP。</div>
                 </div>
                 <div class="svg-container" id="chart4"></div>
             </div>
@@ -263,9 +261,9 @@
             el.innerText = msg;
         }
 
-        // 頁面載入時自動抓取 catalog.json
+        // 頁面載入時自動抓取 catalog.json (帶防快取戳記)
         window.addEventListener('DOMContentLoaded', () => {
-            fetch('catalog.json')
+            fetch('catalog.json?t=' + Date.now())
                 .then(res => {
                     if (!res.ok) throw new Error(`HTTP 錯誤碼: ${res.status}`);
                     return res.json();
@@ -275,7 +273,7 @@
                     initDashboard();
                 })
                 .catch(err => {
-                    showAlert(`❌ 無法讀取 catalog.json（${err.message}）。請確保網頁是透過 Web Server (http/https) 開啟，而非本地檔案路徑 (file://)。`, true);
+                    showAlert(`❌ 無法讀取 catalog.json（${err.message}）。請確認已透過 HTTP 伺服器開啟。`, true);
                     document.getElementById('connection-status').innerText = "連線失敗";
                     document.getElementById('status-tag').innerText = "離線 / 錯誤";
                 });
@@ -317,7 +315,6 @@
             });
 
             if (items.length > 0) {
-                // 預設為最新一天
                 currentDate = items[items.length - 1].date;
                 selDate.value = currentDate;
                 fetchAndRenderCurrent();
@@ -332,7 +329,6 @@
             document.getElementById('btn-next-day').disabled = (idx >= items.length - 1 || idx === -1);
         }
 
-        // 下拉選單監聽
         document.getElementById('select-stock').addEventListener('change', e => {
             currentStock = e.target.value;
             updateDateSelect();
@@ -343,7 +339,6 @@
             updateNavButtonState();
         });
 
-        // 上一日 / 下一日
         document.getElementById('btn-prev-day').addEventListener('click', () => {
             let items = catalogData[currentStock] || [];
             let idx = items.findIndex(x => x.date === currentDate);
@@ -372,13 +367,13 @@
             if (!found) return;
 
             document.getElementById('connection-status').innerText = `讀取 ${found.file}...`;
-            fetch(found.file)
+            fetch(found.file + '?t=' + Date.now())
                 .then(res => {
                     if (!res.ok) throw new Error(`無法載入 ${found.file}`);
                     return res.json();
                 })
                 .then(jsonData => {
-                    document.getElementById('connection-status').innerText = `已連線（展示中: ${currentStock} ${currentDate}）`;
+                    document.getElementById('connection-status').innerText = `展示中: ${currentStock} ${currentDate}`;
                     renderDashboard(jsonData);
                 })
                 .catch(err => {
@@ -386,7 +381,6 @@
                 });
         }
 
-        // 渲染儀表板
         function renderDashboard(data) {
             let stock = data.stock;
             let market = data.market;
@@ -399,22 +393,20 @@
             document.getElementById('obs-start').innerText = stock.observation_start || '--';
             document.getElementById('obs-days').innerText = stock.observation_days || '--';
 
-            // 台股漲紅跌綠
             let chgSign = market.change_pct > 0 ? '+' : '';
             let chgColor = market.change_pct > 0 ? 'var(--tw-buy)' : (market.change_pct < 0 ? 'var(--tw-sell)' : '#94a3b8');
-            document.getElementById('val-close').innerHTML = `${market.close} 元 <span style="color:${chgColor}; font-size:18px;">(${chgSign}${market.change_pct}%)</span>`;
+            document.getElementById('val-close').innerHTML = `${market.close} 元 <span style="color:${chgColor}; font-size:16px;">(${chgSign}${market.change_pct}%)</span>`;
             
             let vol = market.volume ? market.volume.toLocaleString() : '--';
             let vs5ma = market.volume_vs_ma5_pct ? market.volume_vs_ma5_pct + '%' : '--';
-            document.getElementById('val-vol').innerHTML = `${vol} 張 <span style="color:#94a3b8; font-size:16px;">(${vs5ma})</span>`;
+            document.getElementById('val-vol').innerHTML = `${vol} 張 <span style="color:#94a3b8; font-size:14px;">(${vs5ma})</span>`;
             document.getElementById('val-vwap').innerText = market.vwap ? `${market.vwap} 元` : '--';
 
             let diff = (conc.buy_branch_count || 0) - (conc.sell_branch_count || 0);
             let diffSign = diff > 0 ? '+' : '';
             let diffColor = diff < 0 ? 'var(--tw-buy)' : '#94a3b8';
-            document.getElementById('val-diff').innerHTML = `<span style="color:${diffColor}">${diffSign}${diff} 家</span> <span style="color:#94a3b8; font-size:15px;">(買${conc.buy_branch_count} / 賣${conc.sell_branch_count})</span>`;
+            document.getElementById('val-diff').innerHTML = `<span style="color:${diffColor}">${diffSign}${diff} 家</span> <span style="color:#94a3b8; font-size:13px;">(買${conc.buy_branch_count} / 賣${conc.sell_branch_count})</span>`;
 
-            // 動態解釋集中度
             let buy15 = conc.top15_buy_pct || 0;
             let sell15 = conc.top15_sell_pct || 0;
             let diffConc = buy15 - sell15;
@@ -428,7 +420,7 @@
             }
             document.getElementById('conc-explain').innerHTML = explainText;
 
-            // --- 圖表 1: 今日買賣超 (紅買綠賣) ---
+            // --- 1. 今日買賣超 (紅買綠賣) ---
             let topB = (key_brokers.today_top_buyers || []).slice(0, 6);
             let topS = (key_brokers.today_top_sellers || []).slice(0, 6);
             let items1 = [...topS, ...topB];
@@ -456,7 +448,7 @@
             svg1 += `</svg>`;
             document.getElementById('chart1').innerHTML = svg1;
 
-            // --- 圖表 2: 集中度對比 ---
+            // --- 2. 集中度對比 ---
             let tiers = ['Top 5', 'Top 10', 'Top 15'];
             let bPct = [conc.top5_buy_pct || 0, conc.top10_buy_pct || 0, conc.top15_buy_pct || 0];
             let sPct = [conc.top5_sell_pct || 0, conc.top10_sell_pct || 0, conc.top15_sell_pct || 0];
@@ -487,7 +479,7 @@
             svg2 += `</svg>`;
             document.getElementById('chart2').innerHTML = svg2;
 
-            // --- 圖表 3: 波段累計庫存 ---
+            // --- 3. 波段累計庫存 ---
             let accum = (key_brokers.observation_accumulators || []).slice(0, 6);
             let distrib = (key_brokers.observation_distributors || []).slice(0, 6);
             let items3 = [...distrib, ...accum];
@@ -513,7 +505,7 @@
             svg3 += `</svg>`;
             document.getElementById('chart3').innerHTML = svg3;
 
-            // --- 圖表 4: 成本防守帶 ---
+            // --- 4. 成本防守帶 ---
             let costItems = accum.filter(x => x.buy_cost_avg && x.buy_cost_avg > 0).slice(0, 6);
             let costVals = costItems.map(x => x.buy_cost_avg);
             let minP = Math.min(...costVals, market.close, market.vwap || market.close);
