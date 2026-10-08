@@ -1,0 +1,646 @@
+{
+  "schema_version": "1.0",
+  "stock": {
+    "code": "3490",
+    "name": "3490",
+    "date": "2026-09-21",
+    "observation_start": "2026-08-27",
+    "observation_days": 18
+  },
+  "market": {
+    "close": 45.2,
+    "change_pct": 1.92,
+    "volume": 3205.0,
+    "vwap": 45.28,
+    "ma5_volume": 4953.4,
+    "volume_vs_ma5_pct": 64.7
+  },
+  "concentration": {
+    "buy_branch_count": 369,
+    "sell_branch_count": 449,
+    "top5_buy_pct": 38.2,
+    "top10_buy_pct": 53.0,
+    "top15_buy_pct": 57.7,
+    "top5_sell_pct": 26.6,
+    "top10_sell_pct": 36.4,
+    "top15_sell_pct": 42.7
+  },
+  "key_brokers": {
+    "today_top_buyers": [
+      {
+        "broker": "1480 美商高盛亞",
+        "today_net": 228.93,
+        "today_buy": 312.93,
+        "today_sell": 84.0,
+        "today_buy_avg": 45.22,
+        "today_sell_avg": 45.12,
+        "pct_of_5ma_volume": 4.62,
+        "pct_of_today_volume": 6.15
+      },
+      {
+        "broker": "1470 摩根士丹利",
+        "today_net": 173.0,
+        "today_buy": 228.0,
+        "today_sell": 55.0,
+        "today_buy_avg": 45.33,
+        "today_sell_avg": 44.89,
+        "pct_of_5ma_volume": 3.49,
+        "pct_of_today_volume": 4.39
+      },
+      {
+        "broker": "1440 美林證券",
+        "today_net": 146.0,
+        "today_buy": 149.0,
+        "today_sell": 3.0,
+        "today_buy_avg": 45.31,
+        "today_sell_avg": 44.45,
+        "pct_of_5ma_volume": 2.95,
+        "pct_of_today_volume": 2.36
+      },
+      {
+        "broker": "9268 凱基台北",
+        "today_net": 93.0,
+        "today_buy": 194.0,
+        "today_sell": 101.0,
+        "today_buy_avg": 45.15,
+        "today_sell_avg": 45.3,
+        "pct_of_5ma_volume": 1.88,
+        "pct_of_today_volume": 4.57
+      },
+      {
+        "broker": "1650 星洲瑞銀",
+        "today_net": 81.0,
+        "today_buy": 100.0,
+        "today_sell": 19.0,
+        "today_buy_avg": 45.37,
+        "today_sell_avg": 44.83,
+        "pct_of_5ma_volume": 1.64,
+        "pct_of_today_volume": 1.85
+      },
+      {
+        "broker": "9347 永昌敦南",
+        "today_net": 24.0,
+        "today_buy": 24.0,
+        "today_sell": 0.0,
+        "today_buy_avg": 44.98,
+        "today_sell_avg": 0.0,
+        "pct_of_5ma_volume": 0.48,
+        "pct_of_today_volume": 0.37
+      },
+      {
+        "broker": "9889 元大員林",
+        "today_net": 23.0,
+        "today_buy": 26.0,
+        "today_sell": 3.0,
+        "today_buy_avg": 45.58,
+        "today_sell_avg": 45.28,
+        "pct_of_5ma_volume": 0.46,
+        "pct_of_today_volume": 0.45
+      },
+      {
+        "broker": "8560 新光",
+        "today_net": 21.0,
+        "today_buy": 51.0,
+        "today_sell": 30.0,
+        "today_buy_avg": 45.4,
+        "today_sell_avg": 45.14,
+        "pct_of_5ma_volume": 0.42,
+        "pct_of_today_volume": 1.26
+      },
+      {
+        "broker": "126L 宏遠台中",
+        "today_net": 19.0,
+        "today_buy": 20.0,
+        "today_sell": 1.0,
+        "today_buy_avg": 45.24,
+        "today_sell_avg": 45.3,
+        "pct_of_5ma_volume": 0.38,
+        "pct_of_today_volume": 0.33
+      },
+      {
+        "broker": "987A 元大楊梅",
+        "today_net": 19.0,
+        "today_buy": 26.0,
+        "today_sell": 7.0,
+        "today_buy_avg": 45.25,
+        "today_sell_avg": 45.57,
+        "pct_of_5ma_volume": 0.38,
+        "pct_of_today_volume": 0.51
+      }
+    ],
+    "today_top_sellers": [
+      {
+        "broker": "8847 玉山台南",
+        "today_net": -70.99,
+        "today_buy": 0.01,
+        "today_sell": 71.0,
+        "today_buy_avg": 45.75,
+        "today_sell_avg": 45.11,
+        "pct_of_5ma_volume": 1.43,
+        "pct_of_today_volume": 1.1
+      },
+      {
+        "broker": "5600 永興",
+        "today_net": -56.0,
+        "today_buy": 0.0,
+        "today_sell": 56.0,
+        "today_buy_avg": 0.0,
+        "today_sell_avg": 45.37,
+        "pct_of_5ma_volume": 1.13,
+        "pct_of_today_volume": 0.87
+      },
+      {
+        "broker": "9893 元大大天母",
+        "today_net": -48.0,
+        "today_buy": 105.0,
+        "today_sell": 153.0,
+        "today_buy_avg": 45.31,
+        "today_sell_avg": 45.38,
+        "pct_of_5ma_volume": 0.97,
+        "pct_of_today_volume": 4.0
+      },
+      {
+        "broker": "6110 台中銀證券",
+        "today_net": -40.0,
+        "today_buy": 0.0,
+        "today_sell": 40.0,
+        "today_buy_avg": 0.0,
+        "today_sell_avg": 44.65,
+        "pct_of_5ma_volume": 0.81,
+        "pct_of_today_volume": 0.62
+      },
+      {
+        "broker": "8888 國泰敦南",
+        "today_net": -34.0,
+        "today_buy": 30.27,
+        "today_sell": 64.27,
+        "today_buy_avg": 45.39,
+        "today_sell_avg": 45.39,
+        "pct_of_5ma_volume": 0.69,
+        "pct_of_today_volume": 1.47
+      },
+      {
+        "broker": "9B2S 台新基隆",
+        "today_net": -33.0,
+        "today_buy": 13.0,
+        "today_sell": 46.0,
+        "today_buy_avg": 45.13,
+        "today_sell_avg": 45.56,
+        "pct_of_5ma_volume": 0.67,
+        "pct_of_today_volume": 0.91
+      },
+      {
+        "broker": "538D 第一金忠孝",
+        "today_net": -31.0,
+        "today_buy": 3.0,
+        "today_sell": 34.0,
+        "today_buy_avg": 45.15,
+        "today_sell_avg": 45.04,
+        "pct_of_5ma_volume": 0.63,
+        "pct_of_today_volume": 0.57
+      },
+      {
+        "broker": "9B00 台新",
+        "today_net": -30.95,
+        "today_buy": 344.05,
+        "today_sell": 375.0,
+        "today_buy_avg": 45.32,
+        "today_sell_avg": 45.29,
+        "pct_of_5ma_volume": 0.62,
+        "pct_of_today_volume": 11.15
+      },
+      {
+        "broker": "7005 兆豐台中港",
+        "today_net": -27.0,
+        "today_buy": 13.0,
+        "today_sell": 40.0,
+        "today_buy_avg": 44.82,
+        "today_sell_avg": 45.39,
+        "pct_of_5ma_volume": 0.55,
+        "pct_of_today_volume": 0.82
+      },
+      {
+        "broker": "1020 合庫",
+        "today_net": -24.0,
+        "today_buy": 6.01,
+        "today_sell": 30.01,
+        "today_buy_avg": 45.33,
+        "today_sell_avg": 45.54,
+        "pct_of_5ma_volume": 0.48,
+        "pct_of_today_volume": 0.56
+      }
+    ],
+    "observation_accumulators": [
+      {
+        "broker": "9B00 台新",
+        "cumulative_net": 1049.62,
+        "previous_cumulative_net": 1080.57,
+        "today_net": -30.95,
+        "buy_cost_avg": 44.93,
+        "buy_days": 13,
+        "state": "reducing_position",
+        "confidence": "high"
+      },
+      {
+        "broker": "9268 凱基台北",
+        "cumulative_net": 335.25,
+        "previous_cumulative_net": 242.25,
+        "today_net": 93.0,
+        "buy_cost_avg": 46.01,
+        "buy_days": 9,
+        "state": "accelerating_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "9893 元大大天母",
+        "cumulative_net": 314.95,
+        "previous_cumulative_net": 362.95,
+        "today_net": -48.0,
+        "buy_cost_avg": 44.73,
+        "buy_days": 13,
+        "state": "reducing_position",
+        "confidence": "high"
+      },
+      {
+        "broker": "962B 富邦二林",
+        "cumulative_net": 270.3,
+        "previous_cumulative_net": 270.3,
+        "today_net": 0.0,
+        "buy_cost_avg": 45.25,
+        "buy_days": 14,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "9899 元大淡水",
+        "cumulative_net": 194.08,
+        "previous_cumulative_net": 192.08,
+        "today_net": 2.0,
+        "buy_cost_avg": 46.7,
+        "buy_days": 6,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "538D 第一金忠孝",
+        "cumulative_net": 150.0,
+        "previous_cumulative_net": 181.0,
+        "today_net": -31.0,
+        "buy_cost_avg": 45.44,
+        "buy_days": 10,
+        "state": "reducing_position",
+        "confidence": "high"
+      },
+      {
+        "broker": "9209 凱基岡山",
+        "cumulative_net": 150.0,
+        "previous_cumulative_net": 150.0,
+        "today_net": 0.0,
+        "buy_cost_avg": 46.43,
+        "buy_days": 8,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "981a 元大歸仁",
+        "cumulative_net": 138.08,
+        "previous_cumulative_net": 128.08,
+        "today_net": 10.0,
+        "buy_cost_avg": 49.96,
+        "buy_days": 9,
+        "state": "accelerating_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "1440 美林證券",
+        "cumulative_net": 131.0,
+        "previous_cumulative_net": -15.0,
+        "today_net": 146.0,
+        "buy_cost_avg": 46.86,
+        "buy_days": 10,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "981F 元大福營",
+        "cumulative_net": 122.26,
+        "previous_cumulative_net": 137.26,
+        "today_net": -15.0,
+        "buy_cost_avg": 44.83,
+        "buy_days": 12,
+        "state": "reducing_position",
+        "confidence": "high"
+      },
+      {
+        "broker": "9859 元大新竹經",
+        "cumulative_net": 98.0,
+        "previous_cumulative_net": 113.0,
+        "today_net": -15.0,
+        "buy_cost_avg": 45.04,
+        "buy_days": 10,
+        "state": "reducing_position",
+        "confidence": "high"
+      },
+      {
+        "broker": "9898 元大新莊",
+        "cumulative_net": 96.09,
+        "previous_cumulative_net": 91.09,
+        "today_net": 5.0,
+        "buy_cost_avg": 45.2,
+        "buy_days": 13,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "8560 新光",
+        "cumulative_net": 80.9,
+        "previous_cumulative_net": 59.9,
+        "today_net": 21.0,
+        "buy_cost_avg": 45.63,
+        "buy_days": 11,
+        "state": "accelerating_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "9B1h 台新台中",
+        "cumulative_net": 80.76,
+        "previous_cumulative_net": 79.26,
+        "today_net": 1.5,
+        "buy_cost_avg": 49.53,
+        "buy_days": 12,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      },
+      {
+        "broker": "989W 元大豐原",
+        "cumulative_net": 72.52,
+        "previous_cumulative_net": 67.64,
+        "today_net": 4.88,
+        "buy_cost_avg": 46.27,
+        "buy_days": 13,
+        "state": "steady_accumulation",
+        "confidence": "high"
+      }
+    ],
+    "observation_distributors": [
+      {
+        "broker": "1470 摩根士丹利",
+        "cumulative_net": -1298.0,
+        "previous_cumulative_net": -1471.0,
+        "today_net": 173.0,
+        "sell_days": 11,
+        "state": "large_rebound_buying",
+        "confidence": "high"
+      },
+      {
+        "broker": "8440 摩根大通",
+        "cumulative_net": -1198.0,
+        "previous_cumulative_net": -1201.0,
+        "today_net": 3.0,
+        "sell_days": 12,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "1480 美商高盛亞",
+        "cumulative_net": -677.12,
+        "previous_cumulative_net": -906.05,
+        "today_net": 228.93,
+        "sell_days": 13,
+        "state": "large_rebound_buying",
+        "confidence": "high"
+      },
+      {
+        "broker": "9A9g 永豐金內湖",
+        "cumulative_net": -341.17,
+        "previous_cumulative_net": -341.17,
+        "today_net": 0.0,
+        "sell_days": 9,
+        "state": "continued_selling",
+        "confidence": "high"
+      },
+      {
+        "broker": "7750 北城",
+        "cumulative_net": -302.48,
+        "previous_cumulative_net": -309.48,
+        "today_net": 7.0,
+        "sell_days": 5,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "9349 永昌板橋",
+        "cumulative_net": -195.0,
+        "previous_cumulative_net": -196.0,
+        "today_net": 1.0,
+        "sell_days": 8,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "5600 永興",
+        "cumulative_net": -188.0,
+        "previous_cumulative_net": -132.0,
+        "today_net": -56.0,
+        "sell_days": 7,
+        "state": "continued_selling",
+        "confidence": "high"
+      },
+      {
+        "broker": "9100 群益",
+        "cumulative_net": -180.0,
+        "previous_cumulative_net": -182.0,
+        "today_net": 2.0,
+        "sell_days": 4,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "6620 口袋證券",
+        "cumulative_net": -143.38,
+        "previous_cumulative_net": -147.38,
+        "today_net": 4.0,
+        "sell_days": 11,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "9A9q 永豐金潮洲",
+        "cumulative_net": -143.1,
+        "previous_cumulative_net": -143.1,
+        "today_net": 0.0,
+        "sell_days": 7,
+        "state": "continued_selling",
+        "confidence": "high"
+      },
+      {
+        "broker": "1650 星洲瑞銀",
+        "cumulative_net": -136.0,
+        "previous_cumulative_net": -217.0,
+        "today_net": 81.0,
+        "sell_days": 10,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "9858 元大龍潭",
+        "cumulative_net": -118.53,
+        "previous_cumulative_net": -104.33,
+        "today_net": -14.2,
+        "sell_days": 8,
+        "state": "continued_selling",
+        "confidence": "high"
+      },
+      {
+        "broker": "9206 凱基高雄",
+        "cumulative_net": -101.4,
+        "previous_cumulative_net": -100.4,
+        "today_net": -1.0,
+        "sell_days": 11,
+        "state": "continued_selling",
+        "confidence": "high"
+      },
+      {
+        "broker": "6162 中信託忠孝",
+        "cumulative_net": -96.65,
+        "previous_cumulative_net": -97.65,
+        "today_net": 1.0,
+        "sell_days": 4,
+        "state": "short_term_trading",
+        "confidence": "high"
+      },
+      {
+        "broker": "918A 群益中壢",
+        "cumulative_net": -90.74,
+        "previous_cumulative_net": -78.74,
+        "today_net": -12.0,
+        "sell_days": 8,
+        "state": "continued_selling",
+        "confidence": "high"
+      }
+    ],
+    "important_events": [
+      {
+        "broker": "9268 凱基台北",
+        "event": "large_buyer_important",
+        "today_net": 421.0,
+        "pct_of_5ma_volume": 9.71,
+        "event_date": "2026-09-16",
+        "level": "important",
+        "days_ago": 3
+      },
+      {
+        "broker": "8440 摩根大通",
+        "event": "large_seller_important",
+        "today_net": -251.0,
+        "pct_of_5ma_volume": 7.77,
+        "event_date": "2026-09-15",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
+        "broker": "9B00 台新",
+        "event": "large_seller_important",
+        "today_net": -280.0,
+        "pct_of_5ma_volume": 6.46,
+        "event_date": "2026-09-16",
+        "level": "important",
+        "days_ago": 3
+      },
+      {
+        "broker": "1650 星洲瑞銀",
+        "event": "large_seller_important",
+        "today_net": -171.0,
+        "pct_of_5ma_volume": 5.29,
+        "event_date": "2026-09-15",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
+        "broker": "1480 美商高盛亞",
+        "event": "large_buyer_active",
+        "today_net": 228.93,
+        "pct_of_5ma_volume": 4.62,
+        "event_date": "2026-09-21",
+        "level": "normal",
+        "days_ago": 0
+      },
+      {
+        "broker": "1470 摩根士丹利",
+        "event": "large_buyer_active",
+        "today_net": 173.0,
+        "pct_of_5ma_volume": 3.49,
+        "event_date": "2026-09-21",
+        "level": "normal",
+        "days_ago": 0
+      }
+    ]
+  },
+  "broker_states": {
+    "accelerating_accumulation": [
+      "9268 凱基台北",
+      "981a 元大歸仁",
+      "8560 新光"
+    ],
+    "steady_accumulation": [
+      "962B 富邦二林",
+      "9899 元大淡水",
+      "9209 凱基岡山",
+      "9898 元大新莊",
+      "9B1h 台新台中",
+      "989W 元大豐原"
+    ],
+    "new_large_buyers": [],
+    "large_rebound_buying": [
+      "1470 摩根士丹利",
+      "1480 美商高盛亞"
+    ],
+    "reducing_position": [
+      "9B00 台新",
+      "9893 元大大天母",
+      "538D 第一金忠孝",
+      "981F 元大福營",
+      "9859 元大新竹經"
+    ],
+    "continued_selling": [
+      "9A9g 永豐金內湖",
+      "5600 永興",
+      "9A9q 永豐金潮洲",
+      "9858 元大龍潭",
+      "9206 凱基高雄",
+      "918A 群益中壢"
+    ],
+    "short_term_trading": [
+      "1440 美林證券",
+      "8440 摩根大通",
+      "7750 北城",
+      "9349 永昌板橋",
+      "9100 群益",
+      "6620 口袋證券",
+      "1650 星洲瑞銀",
+      "6162 中信託忠孝"
+    ],
+    "retreating": []
+  },
+  "analysis_constraints": {
+    "observation_period_only": true,
+    "do_not_assume_pre_observation_holdings": true,
+    "single_day_buy_not_equal_accumulation": true,
+    "single_day_sell_not_equal_distribution": true,
+    "price_action_must_validate_broker_behavior": true,
+    "event_thresholds": {
+      "normal_pct_of_5ma": 3,
+      "important_pct_of_5ma": 5,
+      "major_pct_of_5ma": 10,
+      "extreme_pct_of_5ma": 20
+    },
+    "event_memory_days": {
+      "normal": 2,
+      "important": 5,
+      "major": 7,
+      "extreme": 10
+    },
+    "primary_broker_importance_metric": "pct_of_5ma_volume",
+    "secondary_broker_importance_metric": "pct_of_today_volume"
+  }
+}
