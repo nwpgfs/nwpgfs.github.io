@@ -2,7 +2,6 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 允許使用者雙指縮放至 3 倍 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>主力籌碼結構量化儀表板 (靜態雲端版)</title>
     <style>
@@ -22,8 +21,8 @@
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
-            padding: 16px;
-            font-size: 15px;
+            padding: 12px;
+            font-size: 14px;
             overflow-x: hidden;
         }
         .container { 
@@ -36,37 +35,37 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
-            margin-bottom: 18px;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
-        h1 { margin: 0; font-size: 22px; }
+        h1 { margin: 0; font-size: 18px; }
         .tag {
             background-color: #2563eb;
             color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: bold;
         }
         
         .control-panel {
             background-color: #1e1b4b;
-            border: 2px solid #4f46e5;
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 20px;
+            border: 1px solid #4f46e5;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 10px;
         }
         .control-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             width: 100%;
         }
@@ -75,53 +74,58 @@
             color: white;
             border: 1px solid #6366f1;
             border-radius: 6px;
-            padding: 8px 12px;
-            font-size: 14px;
+            padding: 6px 10px;
+            font-size: 13px;
             cursor: pointer;
             outline: none;
         }
         button:hover, select:hover { background: #3730a3; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .nav-btn { font-weight: bold; padding: 8px 14px; }
+        .nav-btn { font-weight: bold; padding: 6px 12px; }
 
+        /* 手機版 2x2 緊湊數據網格 */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
         }
         .metric-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 8px;
+            padding: 10px;
         }
-        .metric-label { font-size: 13px; color: var(--text-sub); }
-        .metric-value { font-size: 20px; font-weight: bold; margin-top: 4px; }
+        .metric-label { font-size: 11px; color: var(--text-sub); }
+        .metric-value { font-size: 16px; font-weight: bold; margin-top: 3px; }
 
+        /* 圖表卡片區 */
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 14px;
             width: 100%;
         }
+        @media (min-width: 900px) {
+            .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+            .charts-grid { grid-template-columns: repeat(2, 1fr); }
+            body { padding: 20px; }
+            h1 { font-size: 22px; }
+        }
+
         .chart-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             width: 100%;
-            cursor: zoom-in; /* 提示可點擊放大 */
-            transition: border-color 0.2s;
+            cursor: zoom-in;
         }
-        .chart-box:hover {
-            border-color: #6366f1;
-        }
-        .chart-header { margin-bottom: 10px; }
+        .chart-header { margin-bottom: 8px; }
         .chart-title { 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: bold; 
             color: #f1f5f9;
             display: flex;
@@ -129,16 +133,16 @@
             align-items: center;
         }
         .zoom-tip {
-            font-size: 12px;
+            font-size: 11px;
             color: #38bdf8;
             font-weight: normal;
         }
-        .chart-explain { font-size: 13px; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
+        .chart-explain { font-size: 12px; color: #94a3b8; margin-top: 2px; line-height: 1.3; }
         
         .svg-container { 
             width: 100%; 
             height: auto;
-            aspect-ratio: 580 / 330;
+            min-height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -149,11 +153,11 @@
             display: block;
         }
 
-        #alert-box { display: none; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+        #alert-box { display: none; padding: 10px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; }
         .alert-error { background: #7f1d1d; border: 1px solid #dc2626; color: #fecaca; }
         .alert-success { background: #064e3b; border: 1px solid #059669; color: #a7f3d0; }
 
-        /* 全螢幕放大燈箱 Modal */
+        /* 放大燈箱 Modal */
         #chart-modal {
             display: none;
             position: fixed;
@@ -161,18 +165,17 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(11, 17, 32, 0.95);
+            background: rgba(11, 17, 32, 0.96);
             backdrop-filter: blur(8px);
             z-index: 9999;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 12px;
         }
         #modal-content {
             width: 100%;
             max-width: 900px;
-            max-height: 85vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -180,28 +183,20 @@
         #modal-svg {
             width: 100%;
             height: auto;
-            max-height: 75vh;
+            max-height: 80vh;
         }
         #modal-close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 16px;
+            right: 16px;
             background: #ef4444;
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 15px;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            body { padding: 12px; }
-            h1 { font-size: 19px; }
-            .control-panel { padding: 12px; }
-            .control-group select { flex: 1; }
-            .chart-box { padding: 12px; }
         }
     </style>
 </head>
@@ -212,11 +207,10 @@
         <header>
             <div>
                 <h1 id="header-title">📊 主力籌碼結構量化儀表板</h1>
-                <div style="color: var(--text-sub); font-size: 13px; margin-top: 4px;">
+                <div style="color: var(--text-sub); font-size: 12px; margin-top: 3px;">
                     代號：<span id="obs-code" style="color: #60a5fa; font-weight: bold;">--</span> ｜ 
-                    基準日：<span id="obs-date" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
-                    起算日：<span id="obs-start" style="color: #cbd5e1; font-weight: bold;">--</span> ｜ 
-                    天數：<span id="obs-days">--</span> 天
+                    基準日：<span id="obs-date" style="color: #cbd5e1;">--</span> ｜ 
+                    起算日：<span id="obs-start" style="color: #cbd5e1;">--</span> (<span id="obs-days">--</span>天)
                 </div>
             </div>
             <div>
@@ -224,33 +218,30 @@
             </div>
         </header>
 
-        <!-- 雲端導航控制列 -->
         <div class="control-panel">
             <div class="control-group">
-                <span style="font-weight: bold; font-size: 14px;">🌐 雲端連線狀態：</span>
-                <span id="connection-status" style="color: #a5b4fc; font-size: 13px;">讀取 catalog.json 中...</span>
+                <span style="font-weight: bold; font-size: 13px;">🌐 狀態：</span>
+                <span id="connection-status" style="color: #a5b4fc; font-size: 12px;">讀取 catalog.json 中...</span>
             </div>
 
-            <!-- 動態切換股票與日期 -->
             <div class="control-group" id="nav-controls">
-                <label style="font-size: 14px;">股票：</label>
-                <select id="select-stock"></select>
+                <label style="font-size: 13px;">股票：</label>
+                <select id="select-stock" style="flex: 1; min-width: 80px;"></select>
 
-                <label style="margin-left:6px; font-size: 14px;">日期：</label>
+                <label style="margin-left:4px; font-size: 13px;">日期：</label>
                 <button class="nav-btn" id="btn-prev-day">◀</button>
-                <select id="select-date"></select>
+                <select id="select-date" style="flex: 1.2; min-width: 110px;"></select>
                 <button class="nav-btn" id="btn-next-day">▶</button>
             </div>
         </div>
 
-        <!-- 四大核心數據卡片 -->
         <div class="metrics-grid">
             <div class="metric-card">
-                <div class="metric-label">當日收盤價 / 漲跌幅</div>
+                <div class="metric-label">收盤價 / 漲跌幅</div>
                 <div class="metric-value" id="val-close">--</div>
             </div>
             <div class="metric-card">
-                <div class="metric-label">當日成交量 / 5MA比</div>
+                <div class="metric-label">成交量 / 5MA比</div>
                 <div class="metric-value" id="val-vol">--</div>
             </div>
             <div class="metric-card">
@@ -258,70 +249,62 @@
                 <div class="metric-value" id="val-vwap">--</div>
             </div>
             <div class="metric-card">
-                <div class="metric-label">買賣分點家數差 (買-賣)</div>
+                <div class="metric-label">買賣分點家數差</div>
                 <div class="metric-value" id="val-diff">--</div>
             </div>
         </div>
 
-        <!-- 四大圖表區 (點擊卡片可放大) -->
         <div class="charts-grid">
-            <!-- 圖 1 -->
             <div class="chart-box" onclick="openModal('chart1', '1. 今日關鍵分點淨買賣超')">
                 <div class="chart-header">
                     <div class="chart-title">
                         1. 今日關鍵分點淨買賣超 (張)
                         <span class="zoom-tip">🔍 點擊放大</span>
                     </div>
-                    <div class="chart-explain">🔴 <span style="color:var(--tw-buy)">紅色為買超大戶</span>，🟢 <span style="color:var(--tw-sell)">綠色為賣超大戶</span>。</div>
+                    <div class="chart-explain">🔴 <span style="color:var(--tw-buy)">紅買超</span>，🟢 <span style="color:var(--tw-sell)">綠賣超</span>。</div>
                 </div>
                 <div class="svg-container" id="chart1"></div>
             </div>
 
-            <!-- 圖 2 -->
             <div class="chart-box" onclick="openModal('chart2', '2. 大戶籌碼集中度對比')">
                 <div class="chart-header">
                     <div class="chart-title">
                         2. 大戶籌碼集中度對比 (%)
                         <span class="zoom-tip">🔍 點擊放大</span>
                     </div>
-                    <div class="chart-explain" id="conc-explain">
-                        💡 <b>解釋意義</b>：買方 > 賣方代表大戶掃貨；賣方 > 買方代表大戶調節。
-                    </div>
+                    <div class="chart-explain" id="conc-explain">💡 買方 > 賣方代表大戶掃貨；賣方 > 買方代表大戶調節。</div>
                 </div>
                 <div class="svg-container" id="chart2"></div>
             </div>
 
-            <!-- 圖 3 -->
             <div class="chart-box" onclick="openModal('chart3', '3. 波段累計庫存')">
                 <div class="chart-header">
                     <div class="chart-title">
                         3. 波段累計庫存 (張)
                         <span class="zoom-tip">🔍 點擊放大</span>
                     </div>
-                    <div class="chart-explain">反映自起算日起之累積部位。🔴 <span style="color:var(--tw-buy)">紅條為囤貨</span>，🟢 <span style="color:var(--tw-sell)">綠條為出貨</span>。</div>
+                    <div class="chart-explain">自起算日之累計部位。🔴 <span style="color:var(--tw-buy)">紅囤貨</span>，🟢 <span style="color:var(--tw-sell)">綠出貨</span>。</div>
                 </div>
                 <div class="svg-container" id="chart3"></div>
             </div>
 
-            <!-- 圖 4 -->
             <div class="chart-box" onclick="openModal('chart4', '4. 核心主力波段成本防守帶')">
                 <div class="chart-header">
                     <div class="chart-title">
                         4. 核心主力波段成本防守帶 (元)
                         <span class="zoom-tip">🔍 點擊放大</span>
                     </div>
-                    <div class="chart-explain">🔵 圓點為各大戶波段成本價。線條標記當日收盤價與 VWAP。</div>
+                    <div class="chart-explain">🔵 圓點為大戶成本價，黃線為收盤價，紫線為 VWAP。</div>
                 </div>
                 <div class="svg-container" id="chart4"></div>
             </div>
         </div>
     </div>
 
-    <!-- 點擊放大燈箱容器 -->
     <div id="chart-modal" onclick="closeModal()">
         <button id="modal-close-btn" onclick="closeModal()">✕ 關閉</button>
         <div id="modal-content" onclick="event.stopPropagation()">
-            <div id="modal-title" style="font-size:18px; font-weight:bold; margin-bottom:12px; color:#f8fafc;"></div>
+            <div id="modal-title" style="font-size:16px; font-weight:bold; margin-bottom:10px; color:#f8fafc;"></div>
             <div id="modal-svg"></div>
         </div>
     </div>
@@ -338,7 +321,6 @@
             el.innerText = msg;
         }
 
-        // 燈箱放大功能
         function openModal(chartId, title) {
             const sourceContainer = document.getElementById(chartId);
             if (!sourceContainer || !sourceContainer.innerHTML) return;
@@ -351,7 +333,6 @@
             document.getElementById('chart-modal').style.display = 'none';
         }
 
-        // 頁面載入時自動抓取 catalog.json
         window.addEventListener('DOMContentLoaded', () => {
             fetch('catalog.json?t=' + Date.now())
                 .then(res => {
@@ -363,21 +344,17 @@
                     initDashboard();
                 })
                 .catch(err => {
-                    showAlert(`❌ 無法讀取 catalog.json（${err.message}）。請確認已透過 HTTP 伺服器開啟。`, true);
+                    showAlert(`❌ 無法讀取 catalog.json（${err.message}）。`, true);
                     document.getElementById('connection-status').innerText = "連線失敗";
-                    document.getElementById('status-tag').innerText = "離線 / 錯誤";
+                    document.getElementById('status-tag').innerText = "錯誤";
                 });
         });
 
         function initDashboard() {
             let stocks = Object.keys(catalogData);
-            if (stocks.length === 0) {
-                showAlert("catalog.json 內無任何股票數據。", true);
-                return;
-            }
-
-            document.getElementById('connection-status').innerText = `已連線（共 ${stocks.length} 檔股票）`;
-            document.getElementById('status-tag').innerText = "數據同步正常";
+            if (stocks.length === 0) return;
+            document.getElementById('connection-status').innerText = `已連線（${stocks.length}檔股票）`;
+            document.getElementById('status-tag').innerText = "正常";
 
             let selStock = document.getElementById('select-stock');
             selStock.innerHTML = "";
@@ -456,18 +433,18 @@
             let found = items.find(x => x.date === currentDate);
             if (!found) return;
 
-            document.getElementById('connection-status').innerText = `讀取 ${found.file}...`;
+            document.getElementById('connection-status').innerText = `載入中...`;
             fetch(found.file + '?t=' + Date.now())
                 .then(res => {
                     if (!res.ok) throw new Error(`無法載入 ${found.file}`);
                     return res.json();
                 })
                 .then(jsonData => {
-                    document.getElementById('connection-status').innerText = `展示中: ${currentStock} ${currentDate}`;
+                    document.getElementById('connection-status').innerText = `${currentStock} ${currentDate}`;
                     renderDashboard(jsonData);
                 })
                 .catch(err => {
-                    showAlert(`讀取檔案錯誤：${err.message}`, true);
+                    showAlert(`檔案錯誤：${err.message}`, true);
                 });
         }
 
@@ -477,7 +454,7 @@
             let conc = data.concentration || {};
             let key_brokers = data.key_brokers || {};
 
-            document.getElementById('header-title').innerText = `📊 【${stock.code || stock.name}】主力籌碼結構量化儀表板`;
+            document.getElementById('header-title').innerText = `📊 【${stock.code || stock.name}】主力籌碼量化儀表板`;
             document.getElementById('obs-code').innerText = stock.code || stock.name || '--';
             document.getElementById('obs-date').innerText = stock.date || '--';
             document.getElementById('obs-start').innerText = stock.observation_start || '--';
@@ -485,117 +462,122 @@
 
             let chgSign = market.change_pct > 0 ? '+' : '';
             let chgColor = market.change_pct > 0 ? 'var(--tw-buy)' : (market.change_pct < 0 ? 'var(--tw-sell)' : '#94a3b8');
-            document.getElementById('val-close').innerHTML = `${market.close} 元 <span style="color:${chgColor}; font-size:16px;">(${chgSign}${market.change_pct}%)</span>`;
+            document.getElementById('val-close').innerHTML = `${market.close} <span style="color:${chgColor}; font-size:13px;">(${chgSign}${market.change_pct}%)</span>`;
             
             let vol = market.volume ? market.volume.toLocaleString() : '--';
             let vs5ma = market.volume_vs_ma5_pct ? market.volume_vs_ma5_pct + '%' : '--';
-            document.getElementById('val-vol').innerHTML = `${vol} 張 <span style="color:#94a3b8; font-size:14px;">(${vs5ma})</span>`;
+            document.getElementById('val-vol').innerHTML = `${vol}張 <span style="color:#94a3b8; font-size:12px;">(${vs5ma})</span>`;
             document.getElementById('val-vwap').innerText = market.vwap ? `${market.vwap} 元` : '--';
 
             let diff = (conc.buy_branch_count || 0) - (conc.sell_branch_count || 0);
             let diffSign = diff > 0 ? '+' : '';
             let diffColor = diff < 0 ? 'var(--tw-buy)' : '#94a3b8';
-            document.getElementById('val-diff').innerHTML = `<span style="color:${diffColor}">${diffSign}${diff} 家</span> <span style="color:#94a3b8; font-size:13px;">(買${conc.buy_branch_count} / 賣${conc.sell_branch_count})</span>`;
+            document.getElementById('val-diff').innerHTML = `<span style="color:${diffColor}">${diffSign}${diff} 家</span> <span style="color:#94a3b8; font-size:11px;">(${conc.buy_branch_count}/${conc.sell_branch_count})</span>`;
 
             let buy15 = conc.top15_buy_pct || 0;
             let sell15 = conc.top15_sell_pct || 0;
             let diffConc = buy15 - sell15;
             let explainText = "";
             if (diffConc >= 8) {
-                explainText = `💡 <b>當前結構【大戶強力吃貨】</b>：買方集中度高出 ${diffConc.toFixed(1)}%，籌碼流向少數大戶，多方動能充沛。`;
+                explainText = `💡 <b>大戶強力吃貨</b>：買方集中度高出 ${diffConc.toFixed(1)}%，籌碼流向少數大戶。`;
             } else if (diffConc <= -8) {
-                explainText = `💡 <b>當前結構【大戶明顯調節】</b>：賣方集中度高出 ${Math.abs(diffConc).toFixed(1)}%，大戶倒貨給零散市場，短線承壓。`;
+                explainText = `💡 <b>大戶明顯調節</b>：賣方集中度高出 ${Math.abs(diffConc).toFixed(1)}%，大戶倒貨給零散市場。`;
             } else {
-                explainText = `💡 <b>當前結構【多空均衡換手】</b>：買賣雙方集中度差距僅 ${Math.abs(diffConc).toFixed(1)}%，大戶互有攻防，呈現區間整理。`;
+                explainText = `💡 <b>多空均衡換手</b>：集中度差僅 ${Math.abs(diffConc).toFixed(1)}%，呈現區間整理。`;
             }
             document.getElementById('conc-explain').innerHTML = explainText;
 
-            // --- 1. 今日買賣超 (紅買綠賣) ---
+            // --- 圖表 1: 重新設計的兩側不截斷長條圖 ---
             let topB = (key_brokers.today_top_buyers || []).slice(0, 6);
             let topS = (key_brokers.today_top_sellers || []).slice(0, 6);
             let items1 = [...topS, ...topB];
-            let maxAbs1 = Math.max(...items1.map(x => Math.abs(x.today_net)), 50);
+            let maxAbs1 = Math.max(...items1.map(x => Math.abs(x.today_net)), 30);
 
-            let svg1 = `<svg viewBox="0 0 580 330">`;
-            let midX = 290;
-            svg1 += `<line x1="${midX}" y1="15" x2="${midX}" y2="310" stroke="#475569" stroke-dasharray="4,4"/>`;
+            // 畫布配置：寬度 600，高階座標系
+            let svgW = 600;
+            let svgH = 340;
+            let labelWidth = 140; // 券商名稱固定佔 140px
+            let chartAreaW = svgW - labelWidth - 80; // 剩下的繪圖區
+            let zeroX = labelWidth + chartAreaW / 2; // 正負分界線
+
+            let svg1 = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
+            svg1 += `<line x1="${zeroX}" y1="15" x2="${zeroX}" y2="${svgH - 15}" stroke="#475569" stroke-dasharray="4,4"/>`;
             
             items1.forEach((item, idx) => {
-                let y = 25 + idx * 23;
+                let y = 22 + idx * 25;
                 let val = item.today_net;
-                let barW = (Math.abs(val) / maxAbs1) * 180;
+                let barMaxW = (chartAreaW / 2) - 10;
+                let barW = (Math.abs(val) / maxAbs1) * barMaxW;
                 let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
-                let x = val >= 0 ? midX : midX - barW;
-                let textX = val >= 0 ? x + barW + 8 : x - 8;
+                let x = val >= 0 ? zeroX : zeroX - barW;
+                let textX = val >= 0 ? x + barW + 6 : x - 6;
                 let textAnchor = val >= 0 ? 'start' : 'end';
-                let labelX = val >= 0 ? midX - 8 : midX + 8;
-                let labelAnchor = val >= 0 ? 'end' : 'start';
 
-                svg1 += `<text x="${labelX}" y="${y + 12}" fill="#cbd5e1" font-size="12" text-anchor="${labelAnchor}">${item.broker}</text>`;
-                svg1 += `<rect x="${x}" y="${y}" width="${barW}" height="16" fill="${color}" rx="3"/>`;
-                svg1 += `<text x="${textX}" y="${y + 12}" fill="${color}" font-size="11" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${val.toFixed(1)}</text>`;
+                // 券商名稱靠在分界線左側，絕對不重疊
+                svg1 += `<text x="${labelWidth - 8}" y="${y + 13}" fill="#cbd5e1" font-size="13" text-anchor="end">${item.broker}</text>`;
+                svg1 += `<rect x="${x}" y="${y}" width="${barW}" height="17" fill="${color}" rx="3"/>`;
+                svg1 += `<text x="${textX}" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${val.toFixed(1)}</text>`;
             });
             svg1 += `</svg>`;
             document.getElementById('chart1').innerHTML = svg1;
 
-            // --- 2. 集中度對比 ---
+            // --- 圖表 2: 集中度對比 ---
             let tiers = ['Top 5', 'Top 10', 'Top 15'];
             let bPct = [conc.top5_buy_pct || 0, conc.top10_buy_pct || 0, conc.top15_buy_pct || 0];
             let sPct = [conc.top5_sell_pct || 0, conc.top10_sell_pct || 0, conc.top15_sell_pct || 0];
             let maxPct = Math.max(...bPct, ...sPct, 50) + 6;
 
-            let svg2 = `<svg viewBox="0 0 580 330">`;
-            svg2 += `<rect x="180" y="12" width="14" height="14" fill="var(--tw-buy)" rx="3"/>`;
-            svg2 += `<text x="202" y="24" fill="#e2e8f0" font-size="13">買方集中度 (紅)</text>`;
+            let svg2 = `<svg viewBox="0 0 600 320">`;
+            svg2 += `<rect x="190" y="12" width="14" height="14" fill="var(--tw-buy)" rx="3"/>`;
+            svg2 += `<text x="212" y="24" fill="#e2e8f0" font-size="13">買方集中度</text>`;
             svg2 += `<rect x="330" y="12" width="14" height="14" fill="var(--tw-sell)" rx="3"/>`;
-            svg2 += `<text x="352" y="24" fill="#e2e8f0" font-size="13">賣方集中度 (綠)</text>`;
+            svg2 += `<text x="352" y="24" fill="#e2e8f0" font-size="13">賣方集中度</text>`;
 
             tiers.forEach((t, i) => {
-                let baseX = 100 + i * 180;
-                let bH = (bPct[i] / maxPct) * 210;
-                let sH = (sPct[i] / maxPct) * 210;
-                let by = 265 - bH;
-                let sy = 265 - sH;
+                let baseX = 110 + i * 190;
+                let bH = (bPct[i] / maxPct) * 190;
+                let sH = (sPct[i] / maxPct) * 190;
+                let by = 250 - bH;
+                let sy = 250 - sH;
 
-                svg2 += `<rect x="${baseX - 40}" y="${by}" width="34" height="${bH}" fill="var(--tw-buy)" rx="4"/>`;
-                svg2 += `<text x="${baseX - 23}" y="${by - 8}" fill="var(--tw-buy)" font-size="12" font-weight="bold" text-anchor="middle">${bPct[i]}%</text>`;
+                svg2 += `<rect x="${baseX - 42}" y="${by}" width="36" height="${bH}" fill="var(--tw-buy)" rx="4"/>`;
+                svg2 += `<text x="${baseX - 24}" y="${by - 6}" fill="var(--tw-buy)" font-size="13" font-weight="bold" text-anchor="middle">${bPct[i]}%</text>`;
 
-                svg2 += `<rect x="${baseX + 6}" y="${sy}" width="34" height="${sH}" fill="var(--tw-sell)" rx="4"/>`;
-                svg2 += `<text x="${baseX + 23}" y="${sy - 8}" fill="var(--tw-sell)" font-size="12" font-weight="bold" text-anchor="middle">${sPct[i]}%</text>`;
+                svg2 += `<rect x="${baseX + 6}" y="${sy}" width="36" height="${sH}" fill="var(--tw-sell)" rx="4"/>`;
+                svg2 += `<text x="${baseX + 24}" y="${sy - 6}" fill="var(--tw-sell)" font-size="13" font-weight="bold" text-anchor="middle">${sPct[i]}%</text>`;
 
-                svg2 += `<text x="${baseX}" y="290" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle">${t}</text>`;
+                svg2 += `<text x="${baseX}" y="278" fill="#f8fafc" font-size="15" font-weight="bold" text-anchor="middle">${t}</text>`;
             });
-            svg2 += `<line x1="30" y1="265" x2="550" y2="265" stroke="#475569"/>`;
+            svg2 += `<line x1="30" y1="250" x2="570" y2="250" stroke="#475569"/>`;
             svg2 += `</svg>`;
             document.getElementById('chart2').innerHTML = svg2;
 
-            // --- 3. 波段累計庫存 ---
+            // --- 圖表 3: 波段累計庫存 ---
             let accum = (key_brokers.observation_accumulators || []).slice(0, 6);
             let distrib = (key_brokers.observation_distributors || []).slice(0, 6);
             let items3 = [...distrib, ...accum];
-            let maxAbs3 = Math.max(...items3.map(x => Math.abs(x.cumulative_net)), 100);
+            let maxAbs3 = Math.max(...items3.map(x => Math.abs(x.cumulative_net)), 50);
 
-            let svg3 = `<svg viewBox="0 0 580 330">`;
-            svg3 += `<line x1="${midX}" y1="15" x2="${midX}" y2="310" stroke="#475569" stroke-dasharray="4,4"/>`;
+            let svg3 = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
+            svg3 += `<line x1="${zeroX}" y1="15" x2="${zeroX}" y2="${svgH - 15}" stroke="#475569" stroke-dasharray="4,4"/>`;
             items3.forEach((item, idx) => {
-                let y = 25 + idx * 23;
+                let y = 22 + idx * 25;
                 let val = item.cumulative_net;
-                let barW = (Math.abs(val) / maxAbs3) * 180;
+                let barMaxW = (chartAreaW / 2) - 10;
+                let barW = (Math.abs(val) / maxAbs3) * barMaxW;
                 let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
-                let x = val >= 0 ? midX : midX - barW;
-                let textX = val >= 0 ? x + barW + 8 : x - 8;
+                let x = val >= 0 ? zeroX : zeroX - barW;
+                let textX = val >= 0 ? x + barW + 6 : x - 6;
                 let textAnchor = val >= 0 ? 'start' : 'end';
-                let labelX = val >= 0 ? midX - 8 : midX + 8;
-                let labelAnchor = val >= 0 ? 'end' : 'start';
 
-                svg3 += `<text x="${labelX}" y="${y + 12}" fill="#cbd5e1" font-size="12" text-anchor="${labelAnchor}">${item.broker}</text>`;
-                svg3 += `<rect x="${x}" y="${y}" width="${barW}" height="16" fill="${color}" rx="3"/>`;
-                svg3 += `<text x="${textX}" y="${y + 12}" fill="${color}" font-size="11" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${Math.round(val)}</text>`;
+                svg3 += `<text x="${labelWidth - 8}" y="${y + 13}" fill="#cbd5e1" font-size="13" text-anchor="end">${item.broker}</text>`;
+                svg3 += `<rect x="${x}" y="${y}" width="${barW}" height="17" fill="${color}" rx="3"/>`;
+                svg3 += `<text x="${textX}" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${Math.round(val)}</text>`;
             });
             svg3 += `</svg>`;
             document.getElementById('chart3').innerHTML = svg3;
 
-            // --- 4. 成本防守帶 ---
+            // --- 圖表 4: 成本防守帶 ---
             let costItems = accum.filter(x => x.buy_cost_avg && x.buy_cost_avg > 0).slice(0, 6);
             let costVals = costItems.map(x => x.buy_cost_avg);
             let minP = Math.min(...costVals, market.close, market.vwap || market.close);
@@ -605,28 +587,28 @@
             maxP += range * 0.15;
 
             function scaleP(p) {
-                return 130 + ((p - minP) / (maxP - minP)) * 400;
+                return 150 + ((p - minP) / (maxP - minP)) * 390;
             }
 
-            let svg4 = `<svg viewBox="0 0 580 330">`;
+            let svg4 = `<svg viewBox="0 0 600 320">`;
             let closeX = scaleP(market.close);
-            svg4 += `<line x1="${closeX}" y1="20" x2="${closeX}" y2="280" stroke="#f59e0b" stroke-width="2.2"/>`;
-            svg4 += `<text x="${closeX}" y="15" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">收盤: ${market.close}元</text>`;
+            svg4 += `<line x1="${closeX}" y1="20" x2="${closeX}" y2="270" stroke="#f59e0b" stroke-width="2.2"/>`;
+            svg4 += `<text x="${closeX}" y="15" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">收盤: ${market.close}</text>`;
 
             if (market.vwap) {
                 let vwapX = scaleP(market.vwap);
-                svg4 += `<line x1="${vwapX}" y1="35" x2="${vwapX}" y2="280" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="3,3"/>`;
-                svg4 += `<text x="${vwapX}" y="295" fill="#a855f7" font-size="11" font-weight="bold" text-anchor="middle">VWAP: ${market.vwap}元</text>`;
+                svg4 += `<line x1="${vwapX}" y1="35" x2="${vwapX}" y2="270" stroke="#a855f7" stroke-width="1.8" stroke-dasharray="3,3"/>`;
+                svg4 += `<text x="${vwapX}" y="285" fill="#a855f7" font-size="11" font-weight="bold" text-anchor="middle">VWAP: ${market.vwap}</text>`;
             }
 
             costItems.forEach((item, idx) => {
-                let y = 50 + idx * 36;
+                let y = 45 + idx * 36;
                 let cx = scaleP(item.buy_cost_avg);
                 let diff = ((market.close - item.buy_cost_avg) / item.buy_cost_avg * 100).toFixed(1);
-                svg4 += `<text x="120" y="${y + 5}" fill="#cbd5e1" font-size="12" text-anchor="end">${item.broker}</text>`;
-                svg4 += `<line x1="130" y1="${y}" x2="530" y2="${y}" stroke="#334155" stroke-dasharray="2,2"/>`;
-                svg4 += `<circle cx="${cx}" cy="${y}" r="7" fill="#38bdf8"/>`;
-                svg4 += `<text x="${cx + 10}" y="${y + 5}" fill="#38bdf8" font-size="11" font-weight="bold">${item.buy_cost_avg}元 (${diff > 0 ? '+' : ''}${diff}%)</text>`;
+                svg4 += `<text x="140" y="${y + 5}" fill="#cbd5e1" font-size="13" text-anchor="end">${item.broker}</text>`;
+                svg4 += `<line x1="145" y1="${y}" x2="560" y2="${y}" stroke="#334155" stroke-dasharray="2,2"/>`;
+                svg4 += `<circle cx="${cx}" cy="${y}" r="6" fill="#38bdf8"/>`;
+                svg4 += `<text x="${cx + 8}" y="${y + 5}" fill="#38bdf8" font-size="11" font-weight="bold">${item.buy_cost_avg}元 (${diff > 0 ? '+' : ''}${diff}%)</text>`;
             });
             svg4 += `</svg>`;
             document.getElementById('chart4').innerHTML = svg4;
