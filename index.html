@@ -2,7 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 允許使用者雙指縮放至 3 倍 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>主力籌碼結構量化儀表板 (靜態雲端版)</title>
     <style>
         :root {
@@ -11,7 +12,6 @@
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
             --border: #334155;
-            /* 台股慣例配色：紅買綠賣 */
             --tw-buy: #ef4444;    /* 紅色：買方 / 買超 / 漲 */
             --tw-sell: #10b981;   /* 綠色：賣方 / 賣超 / 跌 */
             --accent: #38bdf8;
@@ -22,9 +22,9 @@
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
-            padding: 16px; /* 手機端邊距縮減為 16px */
+            padding: 16px;
             font-size: 15px;
-            overflow-x: hidden; /* 徹底杜絕手機左右晃動 */
+            overflow-x: hidden;
         }
         .container { 
             max-width: 1540px; 
@@ -51,7 +51,6 @@
             font-weight: bold;
         }
         
-        /* 雲端自動導航控制列 */
         .control-panel {
             background-color: #1e1b4b;
             border: 2px solid #4f46e5;
@@ -87,7 +86,7 @@
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* 手機端自動雙欄 */
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 14px;
             margin-bottom: 20px;
         }
@@ -100,7 +99,6 @@
         .metric-label { font-size: 13px; color: var(--text-sub); }
         .metric-value { font-size: 20px; font-weight: bold; margin-top: 4px; }
 
-        /* 圖表網格：自適應寬度 */
         .charts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr));
@@ -115,16 +113,32 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            overflow: hidden; /* 防止內部圖元突起 */
+            cursor: zoom-in; /* 提示可點擊放大 */
+            transition: border-color 0.2s;
+        }
+        .chart-box:hover {
+            border-color: #6366f1;
         }
         .chart-header { margin-bottom: 10px; }
-        .chart-title { font-size: 16px; font-weight: bold; color: #f1f5f9; }
+        .chart-title { 
+            font-size: 16px; 
+            font-weight: bold; 
+            color: #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .zoom-tip {
+            font-size: 12px;
+            color: #38bdf8;
+            font-weight: normal;
+        }
         .chart-explain { font-size: 13px; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
         
         .svg-container { 
             width: 100%; 
             height: auto;
-            aspect-ratio: 580 / 330; /* 鎖定比例，保證手機縮放不變形 */
+            aspect-ratio: 580 / 330;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -139,12 +153,54 @@
         .alert-error { background: #7f1d1d; border: 1px solid #dc2626; color: #fecaca; }
         .alert-success { background: #064e3b; border: 1px solid #059669; color: #a7f3d0; }
 
-        /* 手機版專屬微調 */
+        /* 全螢幕放大燈箱 Modal */
+        #chart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        #modal-content {
+            width: 100%;
+            max-width: 900px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #modal-svg {
+            width: 100%;
+            height: auto;
+            max-height: 75vh;
+        }
+        #modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         @media (max-width: 768px) {
             body { padding: 12px; }
             h1 { font-size: 19px; }
             .control-panel { padding: 12px; }
-            .control-group select { flex: 1; } /* 下拉選單自動填滿寬度 */
+            .control-group select { flex: 1; }
             .chart-box { padding: 12px; }
         }
     </style>
@@ -207,21 +263,27 @@
             </div>
         </div>
 
-        <!-- 四大圖表區 -->
+        <!-- 四大圖表區 (點擊卡片可放大) -->
         <div class="charts-grid">
             <!-- 圖 1 -->
-            <div class="chart-box">
+            <div class="chart-box" onclick="openModal('chart1', '1. 今日關鍵分點淨買賣超')">
                 <div class="chart-header">
-                    <div class="chart-title">1. 今日關鍵分點淨買賣超 (張)</div>
+                    <div class="chart-title">
+                        1. 今日關鍵分點淨買賣超 (張)
+                        <span class="zoom-tip">🔍 點擊放大</span>
+                    </div>
                     <div class="chart-explain">🔴 <span style="color:var(--tw-buy)">紅色為買超大戶</span>，🟢 <span style="color:var(--tw-sell)">綠色為賣超大戶</span>。</div>
                 </div>
                 <div class="svg-container" id="chart1"></div>
             </div>
 
             <!-- 圖 2 -->
-            <div class="chart-box">
+            <div class="chart-box" onclick="openModal('chart2', '2. 大戶籌碼集中度對比')">
                 <div class="chart-header">
-                    <div class="chart-title">2. 大戶籌碼集中度對比 (%)</div>
+                    <div class="chart-title">
+                        2. 大戶籌碼集中度對比 (%)
+                        <span class="zoom-tip">🔍 點擊放大</span>
+                    </div>
                     <div class="chart-explain" id="conc-explain">
                         💡 <b>解釋意義</b>：買方 > 賣方代表大戶掃貨；賣方 > 買方代表大戶調節。
                     </div>
@@ -230,22 +292,37 @@
             </div>
 
             <!-- 圖 3 -->
-            <div class="chart-box">
+            <div class="chart-box" onclick="openModal('chart3', '3. 波段累計庫存')">
                 <div class="chart-header">
-                    <div class="chart-title">3. 波段累計庫存 (張)</div>
+                    <div class="chart-title">
+                        3. 波段累計庫存 (張)
+                        <span class="zoom-tip">🔍 點擊放大</span>
+                    </div>
                     <div class="chart-explain">反映自起算日起之累積部位。🔴 <span style="color:var(--tw-buy)">紅條為囤貨</span>，🟢 <span style="color:var(--tw-sell)">綠條為出貨</span>。</div>
                 </div>
                 <div class="svg-container" id="chart3"></div>
             </div>
 
             <!-- 圖 4 -->
-            <div class="chart-box">
+            <div class="chart-box" onclick="openModal('chart4', '4. 核心主力波段成本防守帶')">
                 <div class="chart-header">
-                    <div class="chart-title">4. 核心主力波段成本防守帶 (元)</div>
+                    <div class="chart-title">
+                        4. 核心主力波段成本防守帶 (元)
+                        <span class="zoom-tip">🔍 點擊放大</span>
+                    </div>
                     <div class="chart-explain">🔵 圓點為各大戶波段成本價。線條標記當日收盤價與 VWAP。</div>
                 </div>
                 <div class="svg-container" id="chart4"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- 點擊放大燈箱容器 -->
+    <div id="chart-modal" onclick="closeModal()">
+        <button id="modal-close-btn" onclick="closeModal()">✕ 關閉</button>
+        <div id="modal-content" onclick="event.stopPropagation()">
+            <div id="modal-title" style="font-size:18px; font-weight:bold; margin-bottom:12px; color:#f8fafc;"></div>
+            <div id="modal-svg"></div>
         </div>
     </div>
 
@@ -261,7 +338,20 @@
             el.innerText = msg;
         }
 
-        // 頁面載入時自動抓取 catalog.json (帶防快取戳記)
+        // 燈箱放大功能
+        function openModal(chartId, title) {
+            const sourceContainer = document.getElementById(chartId);
+            if (!sourceContainer || !sourceContainer.innerHTML) return;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-svg').innerHTML = sourceContainer.innerHTML;
+            document.getElementById('chart-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('chart-modal').style.display = 'none';
+        }
+
+        // 頁面載入時自動抓取 catalog.json
         window.addEventListener('DOMContentLoaded', () => {
             fetch('catalog.json?t=' + Date.now())
                 .then(res => {
