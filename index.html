@@ -83,7 +83,7 @@
         button:disabled { opacity: 0.5; cursor: not-allowed; }
         .nav-btn { font-weight: bold; padding: 6px 12px; }
 
-        /* 手機版 2x2 緊湊數據網格 */
+        /* 2x2 緊湊數據網格 */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -105,6 +105,7 @@
             grid-template-columns: 1fr;
             gap: 14px;
             width: 100%;
+            margin-bottom: 14px;
         }
         @media (min-width: 900px) {
             .metrics-grid { grid-template-columns: repeat(4, 1fr); }
@@ -121,8 +122,8 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            cursor: zoom-in;
         }
+        .chart-box.clickable { cursor: zoom-in; }
         .chart-header { margin-bottom: 8px; }
         .chart-title { 
             font-size: 15px; 
@@ -156,6 +157,45 @@
         #alert-box { display: none; padding: 10px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; }
         .alert-error { background: #7f1d1d; border: 1px solid #dc2626; color: #fecaca; }
         .alert-success { background: #064e3b; border: 1px solid #059669; color: #a7f3d0; }
+
+        /* 熱力矩陣表格樣式 */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+        table.matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        table.matrix-table th, table.matrix-table td {
+            padding: 8px 10px;
+            text-align: right;
+            border-bottom: 1px solid #293548;
+        }
+        table.matrix-table th {
+            background-color: #0f172a;
+            color: #94a3b8;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        table.matrix-table th:first-child, table.matrix-table td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background-color: var(--card-bg);
+            z-index: 2;
+            font-weight: bold;
+        }
+        table.matrix-table th:first-child { background-color: #0f172a; z-index: 3; }
+        .val-buy { color: #f87171; background: rgba(239, 68, 68, 0.12); font-weight: bold; }
+        .val-sell { color: #34d399; background: rgba(16, 185, 129, 0.12); font-weight: bold; }
+        .val-zero { color: #64748b; }
 
         /* 放大燈箱 Modal */
         #chart-modal {
@@ -228,7 +268,7 @@
                 <label style="font-size: 13px;">股票：</label>
                 <select id="select-stock" style="flex: 1; min-width: 80px;"></select>
 
-                <label style="margin-left:4px; font-size: 13px;">日期：</label>
+                <label style="margin-left:4px; font-size: 13px;">基準日：</label>
                 <button class="nav-btn" id="btn-prev-day">◀</button>
                 <select id="select-date" style="flex: 1.2; min-width: 110px;"></select>
                 <button class="nav-btn" id="btn-next-day">▶</button>
@@ -254,8 +294,9 @@
             </div>
         </div>
 
+        <!-- 每日快照 4 大卡片 -->
         <div class="charts-grid">
-            <div class="chart-box" onclick="openModal('chart1', '1. 今日關鍵分點淨買賣超')">
+            <div class="chart-box clickable" onclick="openModal('chart1', '1. 今日關鍵分點淨買賣超')">
                 <div class="chart-header">
                     <div class="chart-title">
                         1. 今日關鍵分點淨買賣超 (張)
@@ -266,7 +307,7 @@
                 <div class="svg-container" id="chart1"></div>
             </div>
 
-            <div class="chart-box" onclick="openModal('chart2', '2. 大戶籌碼集中度對比')">
+            <div class="chart-box clickable" onclick="openModal('chart2', '2. 大戶籌碼集中度對比')">
                 <div class="chart-header">
                     <div class="chart-title">
                         2. 大戶籌碼集中度對比 (%)
@@ -277,7 +318,7 @@
                 <div class="svg-container" id="chart2"></div>
             </div>
 
-            <div class="chart-box" onclick="openModal('chart3', '3. 波段累計庫存')">
+            <div class="chart-box clickable" onclick="openModal('chart3', '3. 波段累計庫存')">
                 <div class="chart-header">
                     <div class="chart-title">
                         3. 波段累計庫存 (張)
@@ -288,7 +329,7 @@
                 <div class="svg-container" id="chart3"></div>
             </div>
 
-            <div class="chart-box" onclick="openModal('chart4', '4. 核心主力波段成本防守帶')">
+            <div class="chart-box clickable" onclick="openModal('chart4', '4. 核心主力波段成本防守帶')">
                 <div class="chart-header">
                     <div class="chart-title">
                         4. 核心主力波段成本防守帶 (元)
@@ -299,8 +340,36 @@
                 <div class="svg-container" id="chart4"></div>
             </div>
         </div>
+
+        <!-- 連續性時間序列增強功能：走勢圖與熱力消長表 -->
+        <div style="margin-top: 10px; margin-bottom: 20px;">
+            <div class="chart-box" style="margin-bottom: 14px;">
+                <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div>
+                        <div class="chart-title" style="color: #38bdf8;">📈 5. 核心分點每日增減歷程 & 累計走勢 (時間序列)</div>
+                        <div class="chart-explain">觀察選定分點在每日的買賣超柱狀增減，以及波段累計部位（白線）與股價（黃線）的聯動變化。</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <label style="font-size: 12px; color: #94a3b8;">選擇重要分點：</label>
+                        <select id="select-history-broker" style="min-width: 140px;"></select>
+                    </div>
+                </div>
+                <div class="svg-container" id="chart-history-trend" style="min-height: 320px;"></div>
+            </div>
+
+            <div class="chart-box">
+                <div class="chart-header">
+                    <div class="chart-title" style="color: #a78bfa;">📑 6. 重要分點每日買賣超消長矩陣 (張)</div>
+                    <div class="chart-explain">各分點在全波段各交易日的淨買賣變化：🔴 <span style="color:var(--tw-buy)">紅底為加碼買超</span>，🟢 <span style="color:var(--tw-sell)">綠底為調節賣超</span>。</div>
+                </div>
+                <div class="table-responsive" id="table-history-container">
+                    <div style="padding: 20px; text-align: center; color: #94a3b8;">資料整理中...</div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- 放大燈箱 Modal -->
     <div id="chart-modal" onclick="closeModal()">
         <button id="modal-close-btn" onclick="closeModal()">✕ 關閉</button>
         <div id="modal-content" onclick="event.stopPropagation()">
@@ -313,6 +382,7 @@
         let catalogData = {};
         let currentStock = "";
         let currentDate = "";
+        let stockHistoryCache = {}; // 快取當前股票的所有日期 JSON 資料
 
         function showAlert(msg, isError) {
             let el = document.getElementById('alert-box');
@@ -366,10 +436,10 @@
             });
 
             currentStock = stocks[0];
-            updateDateSelect();
+            onStockChanged();
         }
 
-        function updateDateSelect() {
+        function onStockChanged() {
             let items = catalogData[currentStock] || [];
             let selDate = document.getElementById('select-date');
             selDate.innerHTML = "";
@@ -384,9 +454,11 @@
             if (items.length > 0) {
                 currentDate = items[items.length - 1].date;
                 selDate.value = currentDate;
-                fetchAndRenderCurrent();
             }
             updateNavButtonState();
+
+            // 平行載入該股票所有日期的歷史 JSON，繪製連續走勢與矩陣
+            loadAllHistoricalDataForStock(currentStock);
         }
 
         function updateNavButtonState() {
@@ -398,11 +470,12 @@
 
         document.getElementById('select-stock').addEventListener('change', e => {
             currentStock = e.target.value;
-            updateDateSelect();
+            onStockChanged();
         });
+
         document.getElementById('select-date').addEventListener('change', e => {
             currentDate = e.target.value;
-            fetchAndRenderCurrent();
+            renderSingleDayFromCache();
             updateNavButtonState();
         });
 
@@ -412,7 +485,7 @@
             if (idx > 0) {
                 currentDate = items[idx - 1].date;
                 document.getElementById('select-date').value = currentDate;
-                fetchAndRenderCurrent();
+                renderSingleDayFromCache();
                 updateNavButtonState();
             }
         });
@@ -423,29 +496,64 @@
             if (idx < items.length - 1 && idx !== -1) {
                 currentDate = items[idx + 1].date;
                 document.getElementById('select-date').value = currentDate;
-                fetchAndRenderCurrent();
+                renderSingleDayFromCache();
                 updateNavButtonState();
             }
         });
 
-        function fetchAndRenderCurrent() {
-            let items = catalogData[currentStock] || [];
-            let found = items.find(x => x.date === currentDate);
-            if (!found) return;
+        // 非同步讀取某檔股票的所有歷史 JSON 檔
+        async function loadAllHistoricalDataForStock(stockCode) {
+            let items = catalogData[stockCode] || [];
+            if (items.length === 0) return;
 
-            document.getElementById('connection-status').innerText = `載入中...`;
-            fetch(found.file + '?t=' + Date.now())
-                .then(res => {
-                    if (!res.ok) throw new Error(`無法載入 ${found.file}`);
-                    return res.json();
-                })
-                .then(jsonData => {
-                    document.getElementById('connection-status').innerText = `${currentStock} ${currentDate}`;
-                    renderDashboard(jsonData);
-                })
-                .catch(err => {
-                    showAlert(`檔案錯誤：${err.message}`, true);
+            document.getElementById('connection-status').innerText = `正在讀取 ${stockCode} 全部歷史資料...`;
+            stockHistoryCache[stockCode] = [];
+
+            try {
+                const results = await Promise.all(
+                    items.map(item => 
+                        fetch(item.file + '?t=' + Date.now())
+                            .then(res => {
+                                if (!res.ok) throw new Error(`讀取 ${item.file} 失敗`);
+                                return res.json();
+                            })
+                            .catch(err => {
+                                console.warn(err);
+                                return null;
+                            })
+                    )
+                );
+
+                // 過濾成功載入的資料並按日期升冪排序
+                stockHistoryCache[stockCode] = results.filter(x => x !== null).sort((a,b) => {
+                    return (a.stock.date > b.stock.date) ? 1 : -1;
                 });
+
+                document.getElementById('connection-status').innerText = `${stockCode} (${currentDate}) - 資料就緒`;
+                renderSingleDayFromCache();
+                setupHistoricalVisualizations(stockCode);
+
+            } catch (err) {
+                showAlert(`歷史資料讀取失敗：${err.message}`, true);
+            }
+        }
+
+        function renderSingleDayFromCache() {
+            let history = stockHistoryCache[currentStock] || [];
+            let found = history.find(x => x.stock.date === currentDate);
+            if (found) {
+                renderDashboard(found);
+            } else {
+                // 若快取尚無，單獨讀取
+                let items = catalogData[currentStock] || [];
+                let entry = items.find(x => x.date === currentDate);
+                if (entry) {
+                    fetch(entry.file + '?t=' + Date.now())
+                        .then(r => r.json())
+                        .then(d => renderDashboard(d))
+                        .catch(e => showAlert(e.message, true));
+                }
+            }
         }
 
         function renderDashboard(data) {
@@ -487,33 +595,27 @@
             }
             document.getElementById('conc-explain').innerHTML = explainText;
 
-            // --- 圖表 1: 重新設計的兩側不截斷長條圖 ---
+            // 圖表 1: 今日關鍵分點淨買賣超
             let topB = (key_brokers.today_top_buyers || []).slice(0, 6);
             let topS = (key_brokers.today_top_sellers || []).slice(0, 6);
             let items1 = [...topS, ...topB];
             let maxAbs1 = Math.max(...items1.map(x => Math.abs(x.today_net)), 30);
 
-            // 畫布配置：寬度 600，高階座標系
-            let svgW = 600;
-            let svgH = 340;
-            let labelWidth = 140; // 券商名稱固定佔 140px
-            let chartAreaW = svgW - labelWidth - 80; // 剩下的繪圖區
-            let zeroX = labelWidth + chartAreaW / 2; // 正負分界線
+            let svgW = 600, svgH = 340, labelWidth = 140;
+            let chartAreaW = svgW - labelWidth - 80;
+            let zeroX = labelWidth + chartAreaW / 2;
 
             let svg1 = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
             svg1 += `<line x1="${zeroX}" y1="15" x2="${zeroX}" y2="${svgH - 15}" stroke="#475569" stroke-dasharray="4,4"/>`;
-            
             items1.forEach((item, idx) => {
                 let y = 22 + idx * 25;
                 let val = item.today_net;
-                let barMaxW = (chartAreaW / 2) - 10;
-                let barW = (Math.abs(val) / maxAbs1) * barMaxW;
+                let barW = (Math.abs(val) / maxAbs1) * ((chartAreaW / 2) - 10);
                 let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
                 let x = val >= 0 ? zeroX : zeroX - barW;
                 let textX = val >= 0 ? x + barW + 6 : x - 6;
                 let textAnchor = val >= 0 ? 'start' : 'end';
 
-                // 券商名稱靠在分界線左側，絕對不重疊
                 svg1 += `<text x="${labelWidth - 8}" y="${y + 13}" fill="#cbd5e1" font-size="13" text-anchor="end">${item.broker}</text>`;
                 svg1 += `<rect x="${x}" y="${y}" width="${barW}" height="17" fill="${color}" rx="3"/>`;
                 svg1 += `<text x="${textX}" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${val.toFixed(1)}</text>`;
@@ -521,7 +623,7 @@
             svg1 += `</svg>`;
             document.getElementById('chart1').innerHTML = svg1;
 
-            // --- 圖表 2: 集中度對比 ---
+            // 圖表 2: 大戶籌碼集中度對比
             let tiers = ['Top 5', 'Top 10', 'Top 15'];
             let bPct = [conc.top5_buy_pct || 0, conc.top10_buy_pct || 0, conc.top15_buy_pct || 0];
             let sPct = [conc.top5_sell_pct || 0, conc.top10_sell_pct || 0, conc.top15_sell_pct || 0];
@@ -552,7 +654,7 @@
             svg2 += `</svg>`;
             document.getElementById('chart2').innerHTML = svg2;
 
-            // --- 圖表 3: 波段累計庫存 ---
+            // 圖表 3: 波段累計庫存
             let accum = (key_brokers.observation_accumulators || []).slice(0, 6);
             let distrib = (key_brokers.observation_distributors || []).slice(0, 6);
             let items3 = [...distrib, ...accum];
@@ -563,8 +665,7 @@
             items3.forEach((item, idx) => {
                 let y = 22 + idx * 25;
                 let val = item.cumulative_net;
-                let barMaxW = (chartAreaW / 2) - 10;
-                let barW = (Math.abs(val) / maxAbs3) * barMaxW;
+                let barW = (Math.abs(val) / maxAbs3) * ((chartAreaW / 2) - 10);
                 let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
                 let x = val >= 0 ? zeroX : zeroX - barW;
                 let textX = val >= 0 ? x + barW + 6 : x - 6;
@@ -577,7 +678,7 @@
             svg3 += `</svg>`;
             document.getElementById('chart3').innerHTML = svg3;
 
-            // --- 圖表 4: 成本防守帶 ---
+            // 圖表 4: 成本防守帶
             let costItems = accum.filter(x => x.buy_cost_avg && x.buy_cost_avg > 0).slice(0, 6);
             let costVals = costItems.map(x => x.buy_cost_avg);
             let minP = Math.min(...costVals, market.close, market.vwap || market.close);
@@ -613,6 +714,194 @@
             svg4 += `</svg>`;
             document.getElementById('chart4').innerHTML = svg4;
         }
+
+        // ==========================================
+        //  歷史多日連續趨勢圖 & 消長矩陣實現
+        // ==========================================
+        let currentBrokersList = [];
+
+        function setupHistoricalVisualizations(stockCode) {
+            let history = stockHistoryCache[stockCode] || [];
+            if (history.length === 0) return;
+
+            // 1. 抓取這檔股票出現過的最重要主力名單 (累積前幾大買家與賣家)
+            let latest = history[history.length - 1];
+            let brokerSet = new Set();
+            
+            // 從最新一天的累計波段名單中抓取
+            (latest.key_brokers.observation_accumulators || []).slice(0, 6).forEach(b => brokerSet.add(b.broker));
+            (latest.key_brokers.observation_distributors || []).slice(0, 6).forEach(b => brokerSet.add(b.broker));
+            (latest.key_brokers.today_top_buyers || []).slice(0, 4).forEach(b => brokerSet.add(b.broker));
+            (latest.key_brokers.today_top_sellers || []).slice(0, 4).forEach(b => brokerSet.add(b.broker));
+
+            currentBrokersList = Array.from(brokerSet);
+
+            // 更新下拉選單
+            let selBroker = document.getElementById('select-history-broker');
+            selBroker.innerHTML = "";
+            currentBrokersList.forEach(broker => {
+                let opt = document.createElement('option');
+                opt.value = broker;
+                opt.innerText = broker;
+                selBroker.appendChild(opt);
+            });
+
+            if (currentBrokersList.length > 0) {
+                renderHistoricalTrend(currentBrokersList[0]);
+            }
+
+            renderHistoryMatrix(history, currentBrokersList);
+        }
+
+        document.getElementById('select-history-broker').addEventListener('change', e => {
+            renderHistoricalTrend(e.target.value);
+        });
+
+        // 繪製單一分點的歷史時間序列圖表 (柱狀每日淨買賣 + 折線累計部位 + 折線股價)
+        function renderHistoricalTrend(targetBroker) {
+            let history = stockHistoryCache[currentStock] || [];
+            if (history.length === 0) return;
+
+            let dates = history.map(h => h.stock.date.slice(5)); // 取 MM-DD
+            let prices = history.map(h => h.market.close);
+            
+            // 找出每天該分點的淨買賣
+            let dailyNets = history.map(h => {
+                let kb = h.key_brokers || {};
+                let allToday = [...(kb.today_top_buyers || []), ...(kb.today_top_sellers || [])];
+                let f = allToday.find(x => x.broker === targetBroker);
+                if (f) return f.today_net;
+                
+                // 若今日前幾名沒出現，檢查 observation_accumulators
+                let acc = (kb.observation_accumulators || []).find(x => x.broker === targetBroker);
+                if (acc && acc.today_net !== undefined) return acc.today_net;
+                let dist = (kb.observation_distributors || []).find(x => x.broker === targetBroker);
+                if (dist && dist.today_net !== undefined) return dist.today_net;
+                return 0;
+            });
+
+            // 計算累積部位走勢
+            let cumNet = 0;
+            let cumNets = dailyNets.map(n => {
+                cumNet += n;
+                return cumNet;
+            });
+
+            // SVG 座標空間繪製
+            let svgW = 900, svgH = 340;
+            let pL = 50, pR = 60, pT = 40, pB = 40;
+            let chartW = svgW - pL - pR;
+            let chartH = svgH - pT - pB;
+
+            let maxNetAbs = Math.max(...dailyNets.map(Math.abs), 20);
+            let maxCumAbs = Math.max(...cumNets.map(Math.abs), 50);
+            let minP = Math.min(...prices) * 0.98;
+            let maxP = Math.max(...prices) * 1.02;
+
+            let count = dates.length;
+            let stepX = count > 1 ? chartW / (count - 1) : chartW;
+            let barW = Math.max(6, Math.min(24, (chartW / count) * 0.5));
+
+            let netZeroY = pT + (chartH / 2);
+
+            let svg = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
+            
+            // 圖例
+            svg += `
+                <rect x="${pL}" y="12" width="12" height="12" fill="var(--tw-buy)"/>
+                <text x="${pL + 16}" y="22" fill="#94a3b8" font-size="11">買超(張)</text>
+                <rect x="${pL + 75}" y="12" width="12" height="12" fill="var(--tw-sell)"/>
+                <text x="${pL + 91}" y="22" fill="#94a3b8" font-size="11">賣超(張)</text>
+                <line x1="${pL + 155}" y1="18" x2="${pL + 175}" y2="18" stroke="#38bdf8" stroke-width="2.5"/>
+                <text x="${pL + 180}" y="22" fill="#38bdf8" font-size="11">累計部位</text>
+                <line x1="${pL + 250}" y1="18" x2="${pL + 270}" y2="18" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3,3"/>
+                <text x="${pL + 275}" y="22" fill="#f59e0b" font-size="11">收盤價</text>
+            `;
+
+            // 零軸輔助線
+            svg += `<line x1="${pL}" y1="${netZeroY}" x2="${svgW - pR}" y2="${netZeroY}" stroke="#334155" stroke-dasharray="3,3"/>`;
+
+            // 1. 繪製每日淨買賣柱狀
+            dailyNets.forEach((net, i) => {
+                let x = (count > 1) ? (pL + i * stepX) : (pL + chartW/2);
+                let barH = (Math.abs(net) / maxNetAbs) * (chartH / 2 * 0.85);
+                let color = net >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
+                let y = net >= 0 ? (netZeroY - barH) : netZeroY;
+
+                svg += `<rect x="${x - barW/2}" y="${y}" width="${barW}" height="${barH}" fill="${color}" opacity="0.85" rx="2"/>`;
+                
+                // 日期文字
+                svg += `<text x="${x}" y="${svgH - 15}" fill="#64748b" font-size="11" text-anchor="middle">${dates[i]}</text>`;
+            });
+
+            // 2. 繪製收盤價走勢折線 (黃色虛線)
+            let pricePts = prices.map((p, i) => {
+                let x = (count > 1) ? (pL + i * stepX) : (pL + chartW/2);
+                let y = pT + chartH - ((p - minP) / (maxP - minP || 1)) * chartH;
+                return `${x},${y}`;
+            }).join(' ');
+            svg += `<polyline points="${pricePts}" fill="none" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="4,4" opacity="0.75"/>`;
+
+            // 3. 繪製累計部位折線 (青藍色實線)
+            let cumPts = cumNets.map((c, i) => {
+                let x = (count > 1) ? (pL + i * stepX) : (pL + chartW/2);
+                let y = netZeroY - (c / maxCumAbs) * (chartH / 2 * 0.85);
+                return `${x},${y}`;
+            }).join(' ');
+            svg += `<polyline points="${cumPts}" fill="none" stroke="#38bdf8" stroke-width="2.6"/>`;
+
+            // 累計節點圓點與數值
+            cumNets.forEach((c, i) => {
+                let x = (count > 1) ? (pL + i * stepX) : (pL + chartW/2);
+                let y = netZeroY - (c / maxCumAbs) * (chartH / 2 * 0.85);
+                svg += `<circle cx="${x}" cy="${y}" r="4" fill="#38bdf8"/>`;
+                if (i === cumNets.length - 1) {
+                    let sign = c > 0 ? '+' : '';
+                    svg += `<text x="${x + 6}" y="${y - 6}" fill="#38bdf8" font-size="11" font-weight="bold">${sign}${Math.round(c)}張</text>`;
+                }
+            });
+
+            svg += `</svg>`;
+            document.getElementById('chart-history-trend').innerHTML = svg;
+        }
+
+        // 渲染每日買賣消長矩陣表格 (Heatmap Table)
+        function renderHistoryMatrix(history, brokers) {
+            let dates = history.map(h => h.stock.date);
+            let table = `<table class="matrix-table"><thead><tr>`;
+            table += `<th>券商分點</th>`;
+            dates.forEach(d => {
+                table += `<th>${d.slice(5)}</th>`;
+            });
+            table += `<th>波段總計</th></tr></thead><tbody>`;
+
+            brokers.forEach(broker => {
+                let totalNet = 0;
+                table += `<tr><td>${broker}</td>`;
+
+                dates.forEach((d, idx) => {
+                    let kb = history[idx].key_brokers || {};
+                    let allToday = [...(kb.today_top_buyers || []), ...(kb.today_top_sellers || [])];
+                    let f = allToday.find(x => x.broker === broker);
+                    let val = f ? f.today_net : 0;
+                    totalNet += val;
+
+                    let cls = val > 0 ? 'val-buy' : (val < 0 ? 'val-sell' : 'val-zero');
+                    let sign = val > 0 ? '+' : '';
+                    let text = val !== 0 ? `${sign}${Math.round(val)}` : '-';
+                    table += `<td class="${cls}">${text}</td>`;
+                });
+
+                let totCls = totalNet > 0 ? 'val-buy' : (totalNet < 0 ? 'val-sell' : 'val-zero');
+                let totSign = totalNet > 0 ? '+' : '';
+                table += `<td class="${totCls}" style="border-left:2px solid #334155;">${totSign}${Math.round(totalNet)}</td>`;
+                table += `</tr>`;
+            });
+
+            table += `</tbody></table>`;
+            document.getElementById('table-history-container').innerHTML = table;
+        }
     </script>
 </body>
 </html>
+
