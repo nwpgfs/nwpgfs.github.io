@@ -378,9 +378,11 @@
                         <div class="chart-title" style="color: #0284c7;">📈 5. 核心分點每日增減歷程 & 累計走勢 (時間序列)</div>
                         <div class="chart-explain">選定分點在每日的買賣超柱狀增減（紅買綠賣），對比自起算日之累計部位走勢（藍線）與股價（橘虛線）。</div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
                         <label style="font-size: 13px; font-weight:bold; color: #475569;">選擇觀察分點：</label>
-                        <select id="select-history-broker" style="min-width: 150px; font-weight:bold;"></select>
+                        <button class="nav-btn" id="btn-prev-broker" style="padding: 5px 10px;" title="上一個分點">◀</button>
+                        <select id="select-history-broker" style="min-width: 180px; font-weight:bold;"></select>
+                        <button class="nav-btn" id="btn-next-broker" style="padding: 5px 10px;" title="下一個分點">▶</button>
                     </div>
                 </div>
                 <div class="svg-container" id="chart-history-trend" style="min-height: 330px;"></div>
@@ -782,6 +784,7 @@
         }
 
         let currentBrokersList = [];
+        let currentBrokersObjects = []; // 儲存包含類型、總量等資訊的清單
 
         function setupHistoricalVisualizations(stockCode) {
             let history = stockHistoryCache[stockCode] || [];
@@ -813,7 +816,7 @@
                     }
                 });
 
-                // 門檻過濾：排除「完全沒有資料(0筆)」、「僅零星1天且總量微不足道(小於10張)」的雜訊分點
+                // 排除無有效資料或全期累計極度微小（< 10張）的無效雜訊
                 if (activeDays >= 1 && totalAbs >= 10) {
                     brokerStats.push({
                         broker,
@@ -824,61 +827,103 @@
                 }
             });
 
-            // 3. 挑選真正具代表性的波段大戶：
-            // - 波段大買家 (前 5 名)
+            // 3. 明確區分【波段買超分點】與【波段賣超分點】
             let topBuyers = brokerStats
                 .filter(b => b.totalNet > 0)
                 .sort((a, b) => b.totalNet - a.totalNet)
-                .slice(0, 5);
+                .slice(0, 6)
+                .map(b => ({ ...b, type: 'buy' }));
 
-            // - 波段大賣家 (前 5 名)
             let topSellers = brokerStats
                 .filter(b => b.totalNet < 0)
                 .sort((a, b) => a.totalNet - b.totalNet)
-                .slice(0, 5);
+                .slice(0, 6)
+                .map(b => ({ ...b, type: 'sell' }));
 
-            // - 若主要方向不足，依波段總交易量補充
-            let combined = [...topBuyers, ...topSellers];
-            if (combined.length < 6) {
-                let remaining = brokerStats
-                    .filter(b => !combined.some(c => c.broker === b.broker))
-                    .sort((a, b) => b.totalAbs - a.totalAbs);
-                combined = [...combined, ...remaining.slice(0, 8 - combined.length)];
-            }
+            currentBrokersObjects = [...topBuyers, ...topSellers];
+            currentBrokersList = currentBrokersObjects.map(b => b.broker);
 
-            // 依總影響力排序
-            combined.sort((a, b) => b.totalNet - a.totalNet);
-            currentBrokersList = combined.map(b => b.broker);
-
-            // 更新下拉選單
+            // 4. 更新下拉選單（透過 optgroup 清楚分群）
             let selBroker = document.getElementById('select-history-broker');
             selBroker.innerHTML = "";
-            combined.forEach(b => {
-                let opt = document.createElement('option');
-                opt.value = b.broker;
-                let netSign = b.totalNet > 0 ? '+' : '';
-                opt.innerText = `${b.broker} (${netSign}${Math.round(b.totalNet)}張 / ${b.activeDays}天)`;
-                selBroker.appendChild(opt);
-            });
 
-            if (currentBrokersList.length > 0) {
-                renderHistoricalTrend(currentBrokersList[0]);
+            if (topBuyers.length > 0) {
+                let groupBuy = document.createElement('optgroup');
+                groupBuy.label = "🔴 波段買超主力 (加碼吃貨)";
+                topBuyers.forEach(b => {
+                    let opt = document.createElement('option');
+                    opt.value = b.broker;
+                    opt.innerText = `${b.broker} (+${Math.round(b.totalNet)}張 / ${b.activeDays}天)`;
+                    groupBuy.appendChild(opt);
+                });
+                selBroker.appendChild(groupBuy);
             }
 
-            renderHistoryMatrix(history, currentBrokersList);
+            if (topSellers.length > 0) {
+                let groupSell = document.createElement('optgroup');
+                groupSell.label = "🟢 波段賣超主力 (調節出貨)";
+                topSellers.forEach(b => {
+                    let opt = document.createElement('option');
+                    opt.value = b.broker;
+                    opt.innerText = `${b.broker} (${Math.round(b.totalNet)}張 / ${b.activeDays}天)`;
+                    groupSell.appendChild(opt);
+                });
+                selBroker.appendChild(groupSell);
+            }
+
+            if (currentBrokersList.length > 0) {
+                selBroker.value = currentBrokersList[0];
+                renderHistoricalTrend(currentBrokersList[0]);
+            }
+            updateBrokerNavState();
+
+            // 5. 繪製區分買賣超分點的消長矩陣表格
+            renderHistoryMatrix(history, topBuyers, topSellers);
+        }
+
+        function updateBrokerNavState() {
+            let sel = document.getElementById('select-history-broker');
+            let idx = currentBrokersList.indexOf(sel.value);
+            document.getElementById('btn-prev-broker').disabled = (idx <= 0);
+            document.getElementById('btn-next-broker').disabled = (idx >= currentBrokersList.length - 1 || idx === -1);
         }
 
         document.getElementById('select-history-broker').addEventListener('change', e => {
             renderHistoricalTrend(e.target.value);
+            updateBrokerNavState();
         });
 
-        // 繪製單一分點的歷史時間序列圖表 (淺色風格 + 嚴格統一數值)
+        document.getElementById('btn-prev-broker').addEventListener('click', () => {
+            let sel = document.getElementById('select-history-broker');
+            let idx = currentBrokersList.indexOf(sel.value);
+            if (idx > 0) {
+                sel.value = currentBrokersList[idx - 1];
+                renderHistoricalTrend(sel.value);
+                updateBrokerNavState();
+            }
+        });
+
+        document.getElementById('btn-next-broker').addEventListener('click', () => {
+            let sel = document.getElementById('select-history-broker');
+            let idx = currentBrokersList.indexOf(sel.value);
+            if (idx < currentBrokersList.length - 1 && idx !== -1) {
+                sel.value = currentBrokersList[idx + 1];
+                renderHistoricalTrend(sel.value);
+                updateBrokerNavState();
+            }
+        });
+
+        // 繪製單一分點的歷史時間序列圖表 (淺色風格 + 標示買賣超屬性)
         function renderHistoricalTrend(targetBroker) {
             let history = stockHistoryCache[currentStock] || [];
             if (history.length === 0) return;
 
             let dates = history.map(h => h.stock.date.slice(5));
             let prices = history.map(h => h.market.close);
+            let brokerObj = currentBrokersObjects.find(b => b.broker === targetBroker);
+            let isBuyer = brokerObj ? (brokerObj.type === 'buy') : true;
+            let typeLabel = isBuyer ? '【🔴 波段買超分點】' : '【🟢 波段賣超分點】';
+            let typeColor = isBuyer ? 'var(--tw-buy)' : 'var(--tw-sell)';
             
             // 透過統一函式獲取每天數值
             let dailyNets = history.map(h => getBrokerDayNet(h, targetBroker));
@@ -908,17 +953,20 @@
 
             let svg = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
             
+            // 分點類型徽章標註
+            svg += `<text x="${pL}" y="22" fill="${typeColor}" font-size="13" font-weight="bold">${typeLabel} ${targetBroker}</text>`;
+
             // 圖例
             svg += `
-                <rect x="${pL}" y="12" width="12" height="12" fill="var(--tw-buy)" rx="2"/>
-                <text x="${pL + 16}" y="22" fill="#475569" font-size="12" font-weight="600">當日買超(張)</text>
-                <rect x="${pL + 105}" y="12" width="12" height="12" fill="var(--tw-sell)" rx="2"/>
-                <text x="${pL + 121}" y="22" fill="#475569" font-size="12" font-weight="600">當日賣超(張)</text>
-                <line x1="${pL + 215}" y1="18" x2="${pL + 235}" y2="18" stroke="#0284c7" stroke-width="2.5"/>
-                <circle cx="${pL + 225}" cy="18" r="3.5" fill="#0284c7"/>
-                <text x="${pL + 242}" y="22" fill="#0284c7" font-size="12" font-weight="bold">累計部位(張)</text>
-                <line x1="${pL + 335}" y1="18" x2="${pL + 355}" y2="18" stroke="#f97316" stroke-width="2" stroke-dasharray="3,3"/>
-                <text x="${pL + 362}" y="22" fill="#f97316" font-size="12" font-weight="bold">收盤價(元)</text>
+                <rect x="${pL + 240}" y="12" width="12" height="12" fill="var(--tw-buy)" rx="2"/>
+                <text x="${pL + 256}" y="22" fill="#475569" font-size="11" font-weight="600">當日買超</text>
+                <rect x="${pL + 330}" y="12" width="12" height="12" fill="var(--tw-sell)" rx="2"/>
+                <text x="${pL + 346}" y="22" fill="#475569" font-size="11" font-weight="600">當日賣超</text>
+                <line x1="${pL + 420}" y1="18" x2="${pL + 440}" y2="18" stroke="#0284c7" stroke-width="2.5"/>
+                <circle cx="${pL + 430}" cy="18" r="3.5" fill="#0284c7"/>
+                <text x="${pL + 446}" y="22" fill="#0284c7" font-size="11" font-weight="bold">累計部位</text>
+                <line x1="${pL + 520}" y1="18" x2="${pL + 540}" y2="18" stroke="#f97316" stroke-width="2" stroke-dasharray="3,3"/>
+                <text x="${pL + 546}" y="22" fill="#f97316" font-size="11" font-weight="bold">收盤價</text>
             `;
 
             // 零軸輔助線
@@ -974,8 +1022,8 @@
             document.getElementById('chart-history-trend').innerHTML = svg;
         }
 
-        // 渲染每日買賣消長矩陣表格 (Heatmap Table - 淺色清爽版)
-        function renderHistoryMatrix(history, brokers) {
+        // 渲染每日買賣消長矩陣表格 (分組標題：買超分點 vs 賣超分點)
+        function renderHistoryMatrix(history, topBuyers, topSellers) {
             let dates = history.map(h => h.stock.date);
             let table = `<table class="matrix-table"><thead><tr>`;
             table += `<th>券商分點 (點擊切換走勢)</th>`;
@@ -984,26 +1032,43 @@
             });
             table += `<th style="background:#e2e8f0; color:#1e293b;">波段總計</th></tr></thead><tbody>`;
 
-            brokers.forEach(broker => {
+            // 輔助函式：產生一列分點數據
+            function renderBrokerRow(b, typeTag) {
+                let row = `<tr><td style="cursor:pointer; color:#2563eb; text-decoration:underline;" onclick="selectBrokerFromTable('${b.broker}')">${typeTag} ${b.broker}</td>`;
                 let totalNet = 0;
-                table += `<tr><td style="cursor:pointer; color:#2563eb; text-decoration:underline;" onclick="selectBrokerFromTable('${broker}')">${broker}</td>`;
 
                 dates.forEach((d, idx) => {
-                    // 使用完全相同的函式提取數據
-                    let val = getBrokerDayNet(history[idx], broker);
+                    let val = getBrokerDayNet(history[idx], b.broker);
                     totalNet += val;
 
                     let cls = val > 0 ? 'val-buy' : (val < 0 ? 'val-sell' : 'val-zero');
                     let sign = val > 0 ? '+' : '';
                     let text = val !== 0 ? `${sign}${Math.round(val)}` : '-';
-                    table += `<td class="${cls}">${text}</td>`;
+                    row += `<td class="${cls}">${text}</td>`;
                 });
 
                 let totCls = totalNet > 0 ? 'val-buy' : (totalNet < 0 ? 'val-sell' : 'val-zero');
                 let totSign = totalNet > 0 ? '+' : '';
-                table += `<td class="${totCls}" style="border-left:2px solid #cbd5e1; font-size:13px;">${totSign}${Math.round(totalNet)}</td>`;
-                table += `</tr>`;
-            });
+                row += `<td class="${totCls}" style="border-left:2px solid #cbd5e1; font-size:13px;">${totSign}${Math.round(totalNet)}</td>`;
+                row += `</tr>`;
+                return row;
+            }
+
+            // 1. 買超分點群組
+            if (topBuyers.length > 0) {
+                table += `<tr style="background:#fef2f2;"><td colspan="${dates.length + 2}" style="font-weight:bold; color:#dc2626; padding:7px 12px; text-align:left; border-top:2px solid #fecaca; border-bottom:1px solid #fecaca;">🔴 【波段買超主力】（加碼吃貨大戶）</td></tr>`;
+                topBuyers.forEach(b => {
+                    table += renderBrokerRow(b, '🔴');
+                });
+            }
+
+            // 2. 賣超分點群組
+            if (topSellers.length > 0) {
+                table += `<tr style="background:#f0fdf4;"><td colspan="${dates.length + 2}" style="font-weight:bold; color:#16a34a; padding:7px 12px; text-align:left; border-top:2px solid #bbf7d0; border-bottom:1px solid #bbf7d0;">🟢 【波段賣超主力】（調節出貨大戶）</td></tr>`;
+                topSellers.forEach(b => {
+                    table += renderBrokerRow(b, '🟢');
+                });
+            }
 
             table += `</tbody></table>`;
             document.getElementById('table-history-container').innerHTML = table;
@@ -1015,6 +1080,7 @@
             if (sel) {
                 sel.value = brokerName;
                 renderHistoricalTrend(brokerName);
+                updateBrokerNavState();
                 // 滾動到走勢圖
                 document.getElementById('chart-history-trend').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
@@ -1022,4 +1088,3 @@
     </script>
 </body>
 </html>
-
