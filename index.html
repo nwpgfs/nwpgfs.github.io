@@ -619,30 +619,42 @@
             }
             document.getElementById('conc-explain').innerHTML = explainText;
 
-            // 圖表 1: 今日關鍵分點淨買賣超
+            // 圖表 1: 今日關鍵分點淨買賣超 (獨立分欄排版，徹底杜絕文字與圖表/數字重疊)
             let topB = (key_brokers.today_top_buyers || []).slice(0, 6);
             let topS = (key_brokers.today_top_sellers || []).slice(0, 6);
             let items1 = [...topS, ...topB];
             let maxAbs1 = Math.max(...items1.map(x => Math.abs(x.today_net)), 30);
 
-            let svgW = 600, svgH = 340, labelWidth = 140;
-            let chartAreaW = svgW - labelWidth - 80;
-            let zeroX = labelWidth + chartAreaW / 2;
+            // 排版定義：
+            // x: 10 ~ 130  -> 分點名稱 (text-anchor="start")
+            // x: 135 ~ 195 -> 淨額數值 (text-anchor="end")
+            // x: 210 ~ 580 -> 長條圖區，中線 zeroX = 395
+            let svgW = 600, svgH = 340;
+            let barAreaLeft = 210, barAreaRight = 580;
+            let zeroX = (barAreaLeft + barAreaRight) / 2; // 395
+            let maxBarW = (barAreaRight - barAreaLeft) / 2 - 10; // ~175px
 
             let svg1 = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
             svg1 += `<line x1="${zeroX}" y1="15" x2="${zeroX}" y2="${svgH - 15}" stroke="#cbd5e1" stroke-dasharray="4,4"/>`;
-            items1.forEach((item, idx) => {
-                let y = 22 + idx * 25;
-                let val = item.today_net;
-                let barW = (Math.abs(val) / maxAbs1) * ((chartAreaW / 2) - 10);
-                let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
-                let x = val >= 0 ? zeroX : zeroX - barW;
-                let textX = val >= 0 ? x + barW + 6 : x - 6;
-                let textAnchor = val >= 0 ? 'start' : 'end';
+            // 欄位表頭提示
+            svg1 += `<text x="12" y="14" fill="#94a3b8" font-size="11">券商分點</text>`;
+            svg1 += `<text x="195" y="14" fill="#94a3b8" font-size="11" text-anchor="end">買賣超(張)</text>`;
+            svg1 += `<text x="${zeroX}" y="14" fill="#94a3b8" font-size="11" text-anchor="middle">0 軸</text>`;
 
-                svg1 += `<text x="${labelWidth - 8}" y="${y + 13}" fill="#334155" font-size="13" font-weight="500" text-anchor="end">${item.broker}</text>`;
+            items1.forEach((item, idx) => {
+                let y = 24 + idx * 25;
+                let val = item.today_net;
+                let barW = (Math.abs(val) / maxAbs1) * maxBarW;
+                let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
+                let x = val >= 0 ? zeroX : (zeroX - barW);
+
+                // 1. 券商名稱：靠左對齊，最大佔寬 125px
+                svg1 += `<text x="12" y="${y + 13}" fill="#1e293b" font-size="12" font-weight="600" text-anchor="start">${item.broker}</text>`;
+                // 2. 數值：固定靠右獨立欄位，永不重疊
+                let sign = val > 0 ? '+' : '';
+                svg1 += `<text x="195" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="end">${sign}${val.toFixed(1)}</text>`;
+                // 3. 長條圖：固定在中軸左右延伸
                 svg1 += `<rect x="${x}" y="${y}" width="${barW}" height="17" fill="${color}" rx="3"/>`;
-                svg1 += `<text x="${textX}" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${val.toFixed(1)}</text>`;
             });
             svg1 += `</svg>`;
             document.getElementById('chart1').innerHTML = svg1;
@@ -678,7 +690,7 @@
             svg2 += `</svg>`;
             document.getElementById('chart2').innerHTML = svg2;
 
-            // 圖表 3: 波段累計庫存
+            // 圖表 3: 波段累計庫存 (獨立分欄排版，徹底杜絕文字與圖表/數字重疊)
             let accum = (key_brokers.observation_accumulators || []).slice(0, 6);
             let distrib = (key_brokers.observation_distributors || []).slice(0, 6);
             let items3 = [...distrib, ...accum];
@@ -686,18 +698,25 @@
 
             let svg3 = `<svg viewBox="0 0 ${svgW} ${svgH}">`;
             svg3 += `<line x1="${zeroX}" y1="15" x2="${zeroX}" y2="${svgH - 15}" stroke="#cbd5e1" stroke-dasharray="4,4"/>`;
-            items3.forEach((item, idx) => {
-                let y = 22 + idx * 25;
-                let val = item.cumulative_net;
-                let barW = (Math.abs(val) / maxAbs3) * ((chartAreaW / 2) - 10);
-                let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
-                let x = val >= 0 ? zeroX : zeroX - barW;
-                let textX = val >= 0 ? x + barW + 6 : x - 6;
-                let textAnchor = val >= 0 ? 'start' : 'end';
+            // 欄位表頭提示
+            svg3 += `<text x="12" y="14" fill="#94a3b8" font-size="11">券商分點</text>`;
+            svg3 += `<text x="195" y="14" fill="#94a3b8" font-size="11" text-anchor="end">累計庫存(張)</text>`;
+            svg3 += `<text x="${zeroX}" y="14" fill="#94a3b8" font-size="11" text-anchor="middle">0 軸</text>`;
 
-                svg3 += `<text x="${labelWidth - 8}" y="${y + 13}" fill="#334155" font-size="13" font-weight="500" text-anchor="end">${item.broker}</text>`;
+            items3.forEach((item, idx) => {
+                let y = 24 + idx * 25;
+                let val = item.cumulative_net;
+                let barW = (Math.abs(val) / maxAbs3) * maxBarW;
+                let color = val >= 0 ? 'var(--tw-buy)' : 'var(--tw-sell)';
+                let x = val >= 0 ? zeroX : (zeroX - barW);
+
+                // 1. 券商名稱
+                svg3 += `<text x="12" y="${y + 13}" fill="#1e293b" font-size="12" font-weight="600" text-anchor="start">${item.broker}</text>`;
+                // 2. 數值
+                let sign = val > 0 ? '+' : '';
+                svg3 += `<text x="195" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="end">${sign}${Math.round(val)}</text>`;
+                // 3. 長條圖
                 svg3 += `<rect x="${x}" y="${y}" width="${barW}" height="17" fill="${color}" rx="3"/>`;
-                svg3 += `<text x="${textX}" y="${y + 13}" fill="${color}" font-size="12" font-weight="bold" text-anchor="${textAnchor}">${val > 0 ? '+' : ''}${Math.round(val)}</text>`;
             });
             svg3 += `</svg>`;
             document.getElementById('chart3').innerHTML = svg3;
@@ -768,23 +787,77 @@
             let history = stockHistoryCache[stockCode] || [];
             if (history.length === 0) return;
 
-            // 搜集出現在波段累積、倒貨或最新單日前幾大的分點
-            let latest = history[history.length - 1];
-            let brokerSet = new Set();
-            
-            (latest.key_brokers.observation_accumulators || []).forEach(b => brokerSet.add(b.broker));
-            (latest.key_brokers.observation_distributors || []).forEach(b => brokerSet.add(b.broker));
-            (latest.key_brokers.today_top_buyers || []).slice(0, 5).forEach(b => brokerSet.add(b.broker));
-            (latest.key_brokers.today_top_sellers || []).slice(0, 5).forEach(b => brokerSet.add(b.broker));
+            // 1. 搜集所有歷史天數中出現過的所有券商候選名單
+            let allCandidateSet = new Set();
+            history.forEach(day => {
+                let kb = day.key_brokers || {};
+                (kb.today_top_buyers || []).forEach(b => allCandidateSet.add(b.broker));
+                (kb.today_top_sellers || []).forEach(b => allCandidateSet.add(b.broker));
+                (kb.observation_accumulators || []).forEach(b => allCandidateSet.add(b.broker));
+                (kb.observation_distributors || []).forEach(b => allCandidateSet.add(b.broker));
+            });
 
-            currentBrokersList = Array.from(brokerSet);
+            // 2. 統計每個券商在「整個波段」中的真實交易活躍度與總買賣超
+            let brokerStats = [];
+            allCandidateSet.forEach(broker => {
+                let totalNet = 0;
+                let totalAbs = 0;
+                let activeDays = 0;
 
+                history.forEach(day => {
+                    let net = getBrokerDayNet(day, broker);
+                    if (net !== 0) {
+                        activeDays += 1;
+                        totalNet += net;
+                        totalAbs += Math.abs(net);
+                    }
+                });
+
+                // 門檻過濾：排除「完全沒有資料(0筆)」、「僅零星1天且總量微不足道(小於10張)」的雜訊分點
+                if (activeDays >= 1 && totalAbs >= 10) {
+                    brokerStats.push({
+                        broker,
+                        totalNet,
+                        totalAbs,
+                        activeDays
+                    });
+                }
+            });
+
+            // 3. 挑選真正具代表性的波段大戶：
+            // - 波段大買家 (前 5 名)
+            let topBuyers = brokerStats
+                .filter(b => b.totalNet > 0)
+                .sort((a, b) => b.totalNet - a.totalNet)
+                .slice(0, 5);
+
+            // - 波段大賣家 (前 5 名)
+            let topSellers = brokerStats
+                .filter(b => b.totalNet < 0)
+                .sort((a, b) => a.totalNet - b.totalNet)
+                .slice(0, 5);
+
+            // - 若主要方向不足，依波段總交易量補充
+            let combined = [...topBuyers, ...topSellers];
+            if (combined.length < 6) {
+                let remaining = brokerStats
+                    .filter(b => !combined.some(c => c.broker === b.broker))
+                    .sort((a, b) => b.totalAbs - a.totalAbs);
+                combined = [...combined, ...remaining.slice(0, 8 - combined.length)];
+            }
+
+            // 依總影響力排序
+            combined.sort((a, b) => b.totalNet - a.totalNet);
+            currentBrokersList = combined.map(b => b.broker);
+
+            // 更新下拉選單
             let selBroker = document.getElementById('select-history-broker');
             selBroker.innerHTML = "";
-            currentBrokersList.forEach(broker => {
+            combined.forEach(b => {
                 let opt = document.createElement('option');
-                opt.value = broker;
-                opt.innerText = broker;
+                opt.value = b.broker;
+                let netSign = b.totalNet > 0 ? '+' : '';
+                opt.innerText = `${b.broker} (${netSign}${Math.round(b.totalNet)}張 / ${b.activeDays}天)`;
                 selBroker.appendChild(opt);
             });
 
