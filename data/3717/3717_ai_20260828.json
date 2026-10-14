@@ -569,7 +569,7 @@
         "broker": "5383第一高雄",
         "event": "large_seller_important",
         "today_net": -84.0,
-        "pct_of_5ma_volume": 7.73,
+        "pct_of_5ma_volume": 8.01,
         "event_date": "2026-08-27",
         "level": "important",
         "days_ago": 1
@@ -596,7 +596,7 @@
         "broker": "1440美林",
         "event": "large_buyer_important",
         "today_net": 71.0,
-        "pct_of_5ma_volume": 6.54,
+        "pct_of_5ma_volume": 6.77,
         "event_date": "2026-08-27",
         "level": "important",
         "days_ago": 1
@@ -611,6 +611,15 @@
         "days_ago": 0
       },
       {
+        "broker": "8440摩根大通",
+        "event": "large_buyer_important",
+        "today_net": 60.0,
+        "pct_of_5ma_volume": 5.72,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 1
+      },
+      {
         "broker": "1650瑞銀",
         "event": "large_seller_active",
         "today_net": -72.0,
@@ -618,15 +627,6 @@
         "event_date": "2026-08-28",
         "level": "important",
         "days_ago": 0
-      },
-      {
-        "broker": "8440摩根大通",
-        "event": "large_buyer_important",
-        "today_net": 60.0,
-        "pct_of_5ma_volume": 5.52,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 1
       },
       {
         "broker": "1470台灣摩根",
@@ -638,6 +638,15 @@
         "days_ago": 0
       },
       {
+        "broker": "961H富邦新板",
+        "event": "large_buyer_normal",
+        "today_net": 47.0,
+        "pct_of_5ma_volume": 4.48,
+        "event_date": "2026-08-27",
+        "level": "normal",
+        "days_ago": 1
+      },
+      {
         "broker": "9281凱基斗六",
         "event": "large_seller_active",
         "today_net": -57.0,
@@ -647,10 +656,10 @@
         "days_ago": 0
       },
       {
-        "broker": "961H富邦新板",
-        "event": "large_buyer_normal",
-        "today_net": 47.0,
-        "pct_of_5ma_volume": 4.33,
+        "broker": "7791國票台東",
+        "event": "large_seller_normal",
+        "today_net": -45.0,
+        "pct_of_5ma_volume": 4.29,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -665,19 +674,10 @@
         "days_ago": 0
       },
       {
-        "broker": "7791國票台東",
-        "event": "large_seller_normal",
-        "today_net": -45.0,
-        "pct_of_5ma_volume": 4.14,
-        "event_date": "2026-08-27",
-        "level": "normal",
-        "days_ago": 1
-      },
-      {
         "broker": "1480美商高盛",
         "event": "large_buyer_normal",
         "today_net": 42.34,
-        "pct_of_5ma_volume": 3.9,
+        "pct_of_5ma_volume": 4.04,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -686,7 +686,7 @@
         "broker": "9676富邦仁愛",
         "event": "large_seller_normal",
         "today_net": -40.0,
-        "pct_of_5ma_volume": 3.68,
+        "pct_of_5ma_volume": 3.82,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -695,7 +695,7 @@
         "broker": "8888國泰敦南",
         "event": "large_seller_normal",
         "today_net": -36.24,
-        "pct_of_5ma_volume": 3.34,
+        "pct_of_5ma_volume": 3.46,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1

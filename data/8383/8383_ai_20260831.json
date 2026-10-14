@@ -530,6 +530,24 @@
         "days_ago": 1
       },
       {
+        "broker": "1650 星洲瑞銀",
+        "event": "large_buyer_important",
+        "today_net": 107.0,
+        "pct_of_5ma_volume": 5.06,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 2
+      },
+      {
+        "broker": "1440 美林證券",
+        "event": "large_seller_important",
+        "today_net": -106.0,
+        "pct_of_5ma_volume": 5.01,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 2
+      },
+      {
         "broker": "1480 美商高盛亞",
         "event": "large_seller_active",
         "today_net": -113.92,
@@ -537,15 +555,6 @@
         "event_date": "2026-08-31",
         "level": "normal",
         "days_ago": 0
-      },
-      {
-        "broker": "1650 星洲瑞銀",
-        "event": "large_seller_normal",
-        "today_net": -107.0,
-        "pct_of_5ma_volume": 4.6,
-        "event_date": "2026-08-28",
-        "level": "normal",
-        "days_ago": 1
       }
     ]
   },

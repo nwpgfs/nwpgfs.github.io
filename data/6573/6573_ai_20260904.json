@@ -533,7 +533,7 @@
         "broker": "700k兆豐員林",
         "event": "large_buyer_major",
         "today_net": 52.0,
-        "pct_of_5ma_volume": 13.24,
+        "pct_of_5ma_volume": 14.37,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 6
@@ -542,7 +542,7 @@
         "broker": "989I元大蘆中",
         "event": "large_seller_major",
         "today_net": -49.0,
-        "pct_of_5ma_volume": 12.47,
+        "pct_of_5ma_volume": 13.54,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 6

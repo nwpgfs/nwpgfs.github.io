@@ -524,7 +524,16 @@
         "broker": "9268 凱基台北",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
-        "pct_of_5ma_volume": 36.04,
+        "pct_of_5ma_volume": 40.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 4
+      },
+      {
+        "broker": "9B2i 台新中港",
+        "event": "large_seller_extreme",
+        "today_net": -8.0,
+        "pct_of_5ma_volume": 32.0,
         "event_date": "2026-08-27",
         "level": "extreme",
         "days_ago": 4
@@ -548,15 +557,6 @@
         "days_ago": 3
       },
       {
-        "broker": "9B2i 台新中港",
-        "event": "large_seller_extreme",
-        "today_net": -8.0,
-        "pct_of_5ma_volume": 28.83,
-        "event_date": "2026-08-27",
-        "level": "extreme",
-        "days_ago": 4
-      },
-      {
         "broker": "9693 富邦新營",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
@@ -567,20 +567,20 @@
       },
       {
         "broker": "585H 統一桃園",
-        "event": "large_seller_major",
+        "event": "large_seller_extreme",
         "today_net": -5.0,
-        "pct_of_5ma_volume": 18.02,
+        "pct_of_5ma_volume": 20.0,
         "event_date": "2026-08-27",
-        "level": "major",
+        "level": "extreme",
         "days_ago": 4
       },
       {
         "broker": "538I 第一金頭份",
-        "event": "large_seller_major",
+        "event": "large_seller_extreme",
         "today_net": -5.0,
-        "pct_of_5ma_volume": 18.02,
+        "pct_of_5ma_volume": 20.0,
         "event_date": "2026-08-27",
-        "level": "major",
+        "level": "extreme",
         "days_ago": 4
       },
       {
@@ -591,6 +591,15 @@
         "event_date": "2026-08-28",
         "level": "major",
         "days_ago": 3
+      },
+      {
+        "broker": "1440 美林證券",
+        "event": "large_buyer_major",
+        "today_net": 4.0,
+        "pct_of_5ma_volume": 16.0,
+        "event_date": "2026-08-27",
+        "level": "major",
+        "days_ago": 4
       },
       {
         "broker": "8560 新光",
@@ -629,10 +638,10 @@
         "days_ago": 3
       },
       {
-        "broker": "1440 美林證券",
+        "broker": "1470 摩根士丹利",
         "event": "large_buyer_major",
-        "today_net": 4.0,
-        "pct_of_5ma_volume": 14.41,
+        "today_net": 3.0,
+        "pct_of_5ma_volume": 12.0,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 4
@@ -647,15 +656,6 @@
         "days_ago": 3
       },
       {
-        "broker": "1470 摩根士丹利",
-        "event": "large_buyer_major",
-        "today_net": 3.0,
-        "pct_of_5ma_volume": 10.81,
-        "event_date": "2026-08-27",
-        "level": "major",
-        "days_ago": 4
-      },
-      {
         "broker": "1650 星洲瑞銀",
         "event": "large_seller_active",
         "today_net": -4.0,
@@ -663,6 +663,42 @@
         "event_date": "2026-09-02",
         "level": "major",
         "days_ago": 0
+      },
+      {
+        "broker": "538N 第一金豐原",
+        "event": "large_buyer_important",
+        "today_net": 2.0,
+        "pct_of_5ma_volume": 8.0,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
+        "broker": "9215 凱基三民",
+        "event": "large_buyer_important",
+        "today_net": 2.0,
+        "pct_of_5ma_volume": 8.0,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
+        "broker": "9898 元大新莊",
+        "event": "large_buyer_important",
+        "today_net": 2.0,
+        "pct_of_5ma_volume": 8.0,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
+        "broker": "9226 凱基汐止",
+        "event": "large_seller_important",
+        "today_net": -2.0,
+        "pct_of_5ma_volume": 8.0,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
       },
       {
         "broker": "9322 永昌基隆",
@@ -699,42 +735,6 @@
         "event_date": "2026-09-02",
         "level": "important",
         "days_ago": 0
-      },
-      {
-        "broker": "538N 第一金豐原",
-        "event": "large_buyer_important",
-        "today_net": 2.0,
-        "pct_of_5ma_volume": 7.21,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
-      },
-      {
-        "broker": "9215 凱基三民",
-        "event": "large_buyer_important",
-        "today_net": 2.0,
-        "pct_of_5ma_volume": 7.21,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
-      },
-      {
-        "broker": "9898 元大新莊",
-        "event": "large_buyer_important",
-        "today_net": 2.0,
-        "pct_of_5ma_volume": 7.21,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
-      },
-      {
-        "broker": "9226 凱基汐止",
-        "event": "large_seller_important",
-        "today_net": -2.0,
-        "pct_of_5ma_volume": 7.21,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
       },
       {
         "broker": "8888 國泰敦南",

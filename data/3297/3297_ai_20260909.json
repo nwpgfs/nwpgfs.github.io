@@ -521,6 +521,15 @@
     ],
     "important_events": [
       {
+        "broker": "9B2i 台新中港",
+        "event": "large_seller_extreme",
+        "today_net": -8.0,
+        "pct_of_5ma_volume": 32.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 9
+      },
+      {
         "broker": "9834 元大中壢",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
@@ -537,15 +546,6 @@
         "event_date": "2026-08-28",
         "level": "extreme",
         "days_ago": 8
-      },
-      {
-        "broker": "9B2i 台新中港",
-        "event": "large_seller_extreme",
-        "today_net": -8.0,
-        "pct_of_5ma_volume": 28.83,
-        "event_date": "2026-08-27",
-        "level": "extreme",
-        "days_ago": 9
       },
       {
         "broker": "5853 統一中壢",
@@ -573,6 +573,15 @@
         "event_date": "2026-08-31",
         "level": "extreme",
         "days_ago": 7
+      },
+      {
+        "broker": "538I 第一金頭份",
+        "event": "large_seller_extreme",
+        "today_net": -5.0,
+        "pct_of_5ma_volume": 20.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 9
       },
       {
         "broker": "8560 新光",

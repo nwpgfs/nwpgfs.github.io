@@ -548,6 +548,24 @@
         "days_ago": 0
       },
       {
+        "broker": "1650 星洲瑞銀",
+        "event": "large_buyer_important",
+        "today_net": 107.0,
+        "pct_of_5ma_volume": 5.06,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 3
+      },
+      {
+        "broker": "1440 美林證券",
+        "event": "large_seller_important",
+        "today_net": -106.0,
+        "pct_of_5ma_volume": 5.01,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 3
+      },
+      {
         "broker": "1480 美商高盛亞",
         "event": "large_seller_active",
         "today_net": -111.15,
@@ -571,7 +589,8 @@
     "accelerating_accumulation": [
       "9A00 永豐金",
       "962D 富邦新莊",
-      "918E 群益南京"
+      "918E 群益南京",
+      "1650 星洲瑞銀"
     ],
     "steady_accumulation": [
       "9879 元大板橋三",

@@ -524,7 +524,16 @@
         "broker": "989I元大蘆中",
         "event": "large_seller_major",
         "today_net": -49.0,
-        "pct_of_5ma_volume": 12.47,
+        "pct_of_5ma_volume": 13.54,
+        "event_date": "2026-08-27",
+        "level": "major",
+        "days_ago": 4
+      },
+      {
+        "broker": "9A9S永豐南京",
+        "event": "large_buyer_major",
+        "today_net": 39.0,
+        "pct_of_5ma_volume": 10.77,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 4
@@ -534,15 +543,6 @@
         "event": "large_buyer_major",
         "today_net": 50.0,
         "pct_of_5ma_volume": 10.45,
-        "event_date": "2026-08-28",
-        "level": "major",
-        "days_ago": 3
-      },
-      {
-        "broker": "9A9S永豐南京",
-        "event": "large_seller_major",
-        "today_net": -48.0,
-        "pct_of_5ma_volume": 10.03,
         "event_date": "2026-08-28",
         "level": "major",
         "days_ago": 3
@@ -611,6 +611,15 @@
         "days_ago": 3
       },
       {
+        "broker": "982B元大博愛",
+        "event": "large_seller_important",
+        "today_net": -20.0,
+        "pct_of_5ma_volume": 5.53,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
         "broker": "8458康和台南",
         "event": "large_seller_important",
         "today_net": -25.0,
@@ -618,15 +627,6 @@
         "event_date": "2026-08-28",
         "level": "important",
         "days_ago": 3
-      },
-      {
-        "broker": "982B元大博愛",
-        "event": "large_seller_important",
-        "today_net": -20.0,
-        "pct_of_5ma_volume": 5.09,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
       },
       {
         "broker": "779e國票南科",

@@ -533,7 +533,16 @@
         "broker": "9268 凱基台北",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
-        "pct_of_5ma_volume": 36.04,
+        "pct_of_5ma_volume": 40.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 8
+      },
+      {
+        "broker": "9B2i 台新中港",
+        "event": "large_seller_extreme",
+        "today_net": -8.0,
+        "pct_of_5ma_volume": 32.0,
         "event_date": "2026-08-27",
         "level": "extreme",
         "days_ago": 8
@@ -557,15 +566,6 @@
         "days_ago": 7
       },
       {
-        "broker": "9B2i 台新中港",
-        "event": "large_seller_extreme",
-        "today_net": -8.0,
-        "pct_of_5ma_volume": 28.83,
-        "event_date": "2026-08-27",
-        "level": "extreme",
-        "days_ago": 8
-      },
-      {
         "broker": "8882 國泰台中",
         "event": "large_seller_extreme",
         "today_net": -10.71,
@@ -582,6 +582,24 @@
         "event_date": "2026-08-31",
         "level": "extreme",
         "days_ago": 6
+      },
+      {
+        "broker": "585H 統一桃園",
+        "event": "large_seller_extreme",
+        "today_net": -5.0,
+        "pct_of_5ma_volume": 20.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 8
+      },
+      {
+        "broker": "538I 第一金頭份",
+        "event": "large_seller_extreme",
+        "today_net": -5.0,
+        "pct_of_5ma_volume": 20.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 8
       },
       {
         "broker": "8560 新光",
@@ -609,15 +627,6 @@
         "event_date": "2026-09-02",
         "level": "major",
         "days_ago": 4
-      },
-      {
-        "broker": "585H 統一桃園",
-        "event": "large_buyer_major",
-        "today_net": 6.0,
-        "pct_of_5ma_volume": 14.49,
-        "event_date": "2026-09-03",
-        "level": "major",
-        "days_ago": 3
       },
       {
         "broker": "9326 永昌南京",

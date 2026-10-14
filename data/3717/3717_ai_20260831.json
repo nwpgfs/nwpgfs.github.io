@@ -566,6 +566,15 @@
         "days_ago": 1
       },
       {
+        "broker": "5383第一高雄",
+        "event": "large_seller_important",
+        "today_net": -84.0,
+        "pct_of_5ma_volume": 8.01,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 2
+      },
+      {
         "broker": "6210新 百 王",
         "event": "large_seller_active",
         "today_net": -100.0,
@@ -573,15 +582,6 @@
         "event_date": "2026-08-31",
         "level": "important",
         "days_ago": 0
-      },
-      {
-        "broker": "5383第一高雄",
-        "event": "large_seller_important",
-        "today_net": -84.0,
-        "pct_of_5ma_volume": 7.73,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 2
       },
       {
         "broker": "962C富邦竹科",
@@ -602,6 +602,15 @@
         "days_ago": 0
       },
       {
+        "broker": "1440美林",
+        "event": "large_buyer_important",
+        "today_net": 71.0,
+        "pct_of_5ma_volume": 6.77,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 2
+      },
+      {
         "broker": "9131群益民權",
         "event": "large_seller_active",
         "today_net": -85.0,
@@ -609,15 +618,6 @@
         "event_date": "2026-08-31",
         "level": "important",
         "days_ago": 0
-      },
-      {
-        "broker": "1440美林",
-        "event": "large_buyer_important",
-        "today_net": 71.0,
-        "pct_of_5ma_volume": 6.54,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 2
       },
       {
         "broker": "1111企銀台中",

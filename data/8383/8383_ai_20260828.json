@@ -539,6 +539,15 @@
         "days_ago": 0
       },
       {
+        "broker": "1440 美林證券",
+        "event": "large_seller_important",
+        "today_net": -106.0,
+        "pct_of_5ma_volume": 5.01,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 1
+      },
+      {
         "broker": "1650 星洲瑞銀",
         "event": "large_seller_active",
         "today_net": -107.0,
@@ -548,19 +557,19 @@
         "days_ago": 0
       },
       {
-        "broker": "1440 美林證券",
+        "broker": "1560 港商野村",
         "event": "large_seller_normal",
-        "today_net": -106.0,
-        "pct_of_5ma_volume": 4.51,
+        "today_net": -78.0,
+        "pct_of_5ma_volume": 3.69,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
       },
       {
-        "broker": "1560 港商野村",
-        "event": "large_seller_normal",
-        "today_net": -78.0,
-        "pct_of_5ma_volume": 3.32,
+        "broker": "9268 凱基台北",
+        "event": "large_buyer_normal",
+        "today_net": 64.0,
+        "pct_of_5ma_volume": 3.02,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -588,7 +597,8 @@
     "new_large_buyers": [],
     "large_rebound_buying": [],
     "reducing_position": [
-      "1650 星洲瑞銀"
+      "1650 星洲瑞銀",
+      "9268 凱基台北"
     ],
     "continued_selling": [
       "1480 美商高盛亞",

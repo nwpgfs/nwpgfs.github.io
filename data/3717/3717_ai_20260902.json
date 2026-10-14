@@ -560,9 +560,18 @@
         "broker": "962C富邦竹科",
         "event": "large_buyer_major",
         "today_net": 120.0,
-        "pct_of_5ma_volume": 11.05,
+        "pct_of_5ma_volume": 11.45,
         "event_date": "2026-08-27",
         "level": "major",
+        "days_ago": 4
+      },
+      {
+        "broker": "5383第一高雄",
+        "event": "large_seller_important",
+        "today_net": -84.0,
+        "pct_of_5ma_volume": 8.01,
+        "event_date": "2026-08-27",
+        "level": "important",
         "days_ago": 4
       },
       {
@@ -575,15 +584,6 @@
         "days_ago": 2
       },
       {
-        "broker": "5383第一高雄",
-        "event": "large_seller_important",
-        "today_net": -84.0,
-        "pct_of_5ma_volume": 7.73,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
-      },
-      {
         "broker": "9100群益",
         "event": "large_seller_important",
         "today_net": -89.0,
@@ -591,6 +591,15 @@
         "event_date": "2026-08-28",
         "level": "important",
         "days_ago": 3
+      },
+      {
+        "broker": "1440美林",
+        "event": "large_buyer_important",
+        "today_net": 71.0,
+        "pct_of_5ma_volume": 6.77,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
       },
       {
         "broker": "9131群益民權",
@@ -611,15 +620,6 @@
         "days_ago": 0
       },
       {
-        "broker": "1440美林",
-        "event": "large_buyer_important",
-        "today_net": 71.0,
-        "pct_of_5ma_volume": 6.54,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
-      },
-      {
         "broker": "1111企銀台中",
         "event": "large_seller_important",
         "today_net": -80.0,
@@ -638,6 +638,15 @@
         "days_ago": 3
       },
       {
+        "broker": "8440摩根大通",
+        "event": "large_buyer_important",
+        "today_net": 60.0,
+        "pct_of_5ma_volume": 5.72,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 4
+      },
+      {
         "broker": "1650瑞銀",
         "event": "large_seller_important",
         "today_net": -72.0,
@@ -645,15 +654,6 @@
         "event_date": "2026-08-28",
         "level": "important",
         "days_ago": 3
-      },
-      {
-        "broker": "8440摩根大通",
-        "event": "large_buyer_important",
-        "today_net": 60.0,
-        "pct_of_5ma_volume": 5.52,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 4
       },
       {
         "broker": "8560新    光",

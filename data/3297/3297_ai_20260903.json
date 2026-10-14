@@ -524,7 +524,16 @@
         "broker": "9268 凱基台北",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
-        "pct_of_5ma_volume": 36.04,
+        "pct_of_5ma_volume": 40.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 5
+      },
+      {
+        "broker": "9B2i 台新中港",
+        "event": "large_seller_extreme",
+        "today_net": -8.0,
+        "pct_of_5ma_volume": 32.0,
         "event_date": "2026-08-27",
         "level": "extreme",
         "days_ago": 5
@@ -548,15 +557,6 @@
         "days_ago": 4
       },
       {
-        "broker": "9B2i 台新中港",
-        "event": "large_seller_extreme",
-        "today_net": -8.0,
-        "pct_of_5ma_volume": 28.83,
-        "event_date": "2026-08-27",
-        "level": "extreme",
-        "days_ago": 5
-      },
-      {
         "broker": "9693 富邦新營",
         "event": "large_buyer_extreme",
         "today_net": 10.0,
@@ -576,9 +576,18 @@
       },
       {
         "broker": "538I 第一金頭份",
-        "event": "large_seller_major",
+        "event": "large_seller_extreme",
         "today_net": -5.0,
-        "pct_of_5ma_volume": 18.02,
+        "pct_of_5ma_volume": 20.0,
+        "event_date": "2026-08-27",
+        "level": "extreme",
+        "days_ago": 5
+      },
+      {
+        "broker": "1440 美林證券",
+        "event": "large_buyer_major",
+        "today_net": 4.0,
+        "pct_of_5ma_volume": 16.0,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 5
@@ -618,15 +627,6 @@
         "event_date": "2026-09-03",
         "level": "major",
         "days_ago": 0
-      },
-      {
-        "broker": "1440 美林證券",
-        "event": "large_buyer_major",
-        "today_net": 4.0,
-        "pct_of_5ma_volume": 14.41,
-        "event_date": "2026-08-27",
-        "level": "major",
-        "days_ago": 5
       },
       {
         "broker": "585W 統一金門",

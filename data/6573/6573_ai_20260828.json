@@ -524,7 +524,7 @@
         "broker": "700k兆豐員林",
         "event": "large_buyer_major",
         "today_net": 52.0,
-        "pct_of_5ma_volume": 13.24,
+        "pct_of_5ma_volume": 14.37,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 1
@@ -533,7 +533,7 @@
         "broker": "989I元大蘆中",
         "event": "large_seller_major",
         "today_net": -49.0,
-        "pct_of_5ma_volume": 12.47,
+        "pct_of_5ma_volume": 13.54,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 1
@@ -611,6 +611,15 @@
         "days_ago": 0
       },
       {
+        "broker": "982B元大博愛",
+        "event": "large_seller_important",
+        "today_net": -20.0,
+        "pct_of_5ma_volume": 5.53,
+        "event_date": "2026-08-27",
+        "level": "important",
+        "days_ago": 1
+      },
+      {
         "broker": "8458康和台南",
         "event": "large_seller_active",
         "today_net": -25.0,
@@ -620,19 +629,10 @@
         "days_ago": 0
       },
       {
-        "broker": "982B元大博愛",
-        "event": "large_seller_important",
-        "today_net": -20.0,
-        "pct_of_5ma_volume": 5.09,
-        "event_date": "2026-08-27",
-        "level": "important",
-        "days_ago": 1
-      },
-      {
         "broker": "1480美商高盛",
         "event": "large_seller_normal",
         "today_net": -18.08,
-        "pct_of_5ma_volume": 4.6,
+        "pct_of_5ma_volume": 4.99,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -695,7 +695,7 @@
         "broker": "9B29台新府城",
         "event": "large_buyer_normal",
         "today_net": 12.35,
-        "pct_of_5ma_volume": 3.14,
+        "pct_of_5ma_volume": 3.41,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 1
@@ -717,6 +717,15 @@
         "event_date": "2026-08-28",
         "level": "normal",
         "days_ago": 0
+      },
+      {
+        "broker": "616A中信中壢",
+        "event": "large_buyer_normal",
+        "today_net": 11.0,
+        "pct_of_5ma_volume": 3.04,
+        "event_date": "2026-08-27",
+        "level": "normal",
+        "days_ago": 1
       }
     ]
   },

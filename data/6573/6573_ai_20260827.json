@@ -12,8 +12,8 @@
     "change_pct": -2.75,
     "volume": 353.95,
     "vwap": 17.87,
-    "ma5_volume": 392.81,
-    "volume_vs_ma5_pct": 90.11
+    "ma5_volume": 361.99,
+    "volume_vs_ma5_pct": 97.78
   },
   "concentration": {
     "buy_branch_count": 88,
@@ -34,7 +34,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 18.01,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 13.24,
+        "pct_of_5ma_volume": 14.37,
         "pct_of_today_volume": 7.35
       },
       {
@@ -44,7 +44,7 @@
         "today_sell": 1.0,
         "today_buy_avg": 17.84,
         "today_sell_avg": 18.3,
-        "pct_of_5ma_volume": 9.93,
+        "pct_of_5ma_volume": 10.77,
         "pct_of_today_volume": 5.79
       },
       {
@@ -54,7 +54,7 @@
         "today_sell": 13.0,
         "today_buy_avg": 17.84,
         "today_sell_avg": 18.1,
-        "pct_of_5ma_volume": 6.11,
+        "pct_of_5ma_volume": 6.63,
         "pct_of_today_volume": 7.06
       },
       {
@@ -64,7 +64,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 17.8,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 3.14,
+        "pct_of_5ma_volume": 3.41,
         "pct_of_today_volume": 1.74
       },
       {
@@ -74,7 +74,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 17.8,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 2.8,
+        "pct_of_5ma_volume": 3.04,
         "pct_of_today_volume": 1.55
       },
       {
@@ -84,7 +84,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 17.7,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -94,7 +94,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 18.1,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -104,7 +104,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 17.7,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -114,7 +114,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 18.05,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 1.78,
+        "pct_of_5ma_volume": 1.93,
         "pct_of_today_volume": 0.99
       },
       {
@@ -124,7 +124,7 @@
         "today_sell": 0.0,
         "today_buy_avg": 17.81,
         "today_sell_avg": 0.0,
-        "pct_of_5ma_volume": 1.53,
+        "pct_of_5ma_volume": 1.66,
         "pct_of_today_volume": 0.85
       }
     ],
@@ -136,7 +136,7 @@
         "today_sell": 50.0,
         "today_buy_avg": 18.0,
         "today_sell_avg": 17.71,
-        "pct_of_5ma_volume": 12.47,
+        "pct_of_5ma_volume": 13.54,
         "pct_of_today_volume": 7.2
       },
       {
@@ -146,7 +146,7 @@
         "today_sell": 20.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.7,
-        "pct_of_5ma_volume": 5.09,
+        "pct_of_5ma_volume": 5.53,
         "pct_of_today_volume": 2.83
       },
       {
@@ -156,7 +156,7 @@
         "today_sell": 18.08,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.89,
-        "pct_of_5ma_volume": 4.6,
+        "pct_of_5ma_volume": 4.99,
         "pct_of_today_volume": 2.55
       },
       {
@@ -166,7 +166,7 @@
         "today_sell": 10.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.73,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -176,7 +176,7 @@
         "today_sell": 10.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 18.02,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -186,7 +186,7 @@
         "today_sell": 10.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.75,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -196,7 +196,7 @@
         "today_sell": 10.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.76,
-        "pct_of_5ma_volume": 2.55,
+        "pct_of_5ma_volume": 2.76,
         "pct_of_today_volume": 1.41
       },
       {
@@ -206,7 +206,7 @@
         "today_sell": 8.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.84,
-        "pct_of_5ma_volume": 2.04,
+        "pct_of_5ma_volume": 2.21,
         "pct_of_today_volume": 1.13
       },
       {
@@ -216,7 +216,7 @@
         "today_sell": 14.0,
         "today_buy_avg": 17.79,
         "today_sell_avg": 17.97,
-        "pct_of_5ma_volume": 2.04,
+        "pct_of_5ma_volume": 2.21,
         "pct_of_today_volume": 2.83
       },
       {
@@ -226,7 +226,7 @@
         "today_sell": 8.0,
         "today_buy_avg": 0.0,
         "today_sell_avg": 17.81,
-        "pct_of_5ma_volume": 2.04,
+        "pct_of_5ma_volume": 2.21,
         "pct_of_today_volume": 1.13
       }
     ],
@@ -524,7 +524,7 @@
         "broker": "700k兆豐員林",
         "event": "large_buyer_active",
         "today_net": 52.0,
-        "pct_of_5ma_volume": 13.24,
+        "pct_of_5ma_volume": 14.37,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 0
@@ -533,7 +533,7 @@
         "broker": "989I元大蘆中",
         "event": "large_seller_active",
         "today_net": -49.0,
-        "pct_of_5ma_volume": 12.47,
+        "pct_of_5ma_volume": 13.54,
         "event_date": "2026-08-27",
         "level": "major",
         "days_ago": 0
@@ -542,16 +542,16 @@
         "broker": "9A9S永豐南京",
         "event": "large_buyer_active",
         "today_net": 39.0,
-        "pct_of_5ma_volume": 9.93,
+        "pct_of_5ma_volume": 10.77,
         "event_date": "2026-08-27",
-        "level": "important",
+        "level": "major",
         "days_ago": 0
       },
       {
         "broker": "9268凱基台北",
         "event": "large_buyer_active",
         "today_net": 24.0,
-        "pct_of_5ma_volume": 6.11,
+        "pct_of_5ma_volume": 6.63,
         "event_date": "2026-08-27",
         "level": "important",
         "days_ago": 0
@@ -560,7 +560,7 @@
         "broker": "982B元大博愛",
         "event": "large_seller_active",
         "today_net": -20.0,
-        "pct_of_5ma_volume": 5.09,
+        "pct_of_5ma_volume": 5.53,
         "event_date": "2026-08-27",
         "level": "important",
         "days_ago": 0
@@ -569,7 +569,7 @@
         "broker": "1480美商高盛",
         "event": "large_seller_active",
         "today_net": -18.08,
-        "pct_of_5ma_volume": 4.6,
+        "pct_of_5ma_volume": 4.99,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 0
@@ -578,7 +578,16 @@
         "broker": "9B29台新府城",
         "event": "large_buyer_active",
         "today_net": 12.35,
-        "pct_of_5ma_volume": 3.14,
+        "pct_of_5ma_volume": 3.41,
+        "event_date": "2026-08-27",
+        "level": "normal",
+        "days_ago": 0
+      },
+      {
+        "broker": "616A中信中壢",
+        "event": "large_buyer_active",
+        "today_net": 11.0,
+        "pct_of_5ma_volume": 3.04,
         "event_date": "2026-08-27",
         "level": "normal",
         "days_ago": 0
